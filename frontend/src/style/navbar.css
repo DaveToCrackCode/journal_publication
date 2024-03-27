@@ -1,0 +1,178 @@
+html {
+    /* font-size: 10px; */
+  
+    /* 10px / 16px = 0.625 = 62.5% */
+    /* Percentage of user's browser font-size setting */
+    font-size: 63.5%;
+    overflow-x: hidden;
+  
+    /* Does NOT work on Safari */
+    /* scroll-behavior: smooth; */
+  }
+  
+  body {
+    font-family: "Rubik", sans-serif;
+    line-height: 1;
+    font-weight: 400;
+    color: #555;
+  
+    /* Only works if there is nothing absolutely positioned in relation to body */
+    overflow-x: hidden;
+  }
+  
+/**************************/
+/* HEADER */
+/**************************/
+
+.header {
+  
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fdf2e9;
+    height: 9.6rem;
+    padding: 0 4.8rem;
+    position: relative;
+    box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.03);
+  }
+  
+  .logo {
+    height: 4rem;
+  }
+  
+  /**************************/
+  /* NAVIGATION */
+  /**************************/
+  
+  .main-nav-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 4.8rem;
+  }
+  
+  .main-nav-link:link,
+  .main-nav-link:visited {
+    font-family: "Rubik", sans-serif;
+    display: inline-block;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 1.8rem;
+    transition: all 0.3s;
+  }
+  
+  .main-nav-link:hover,
+  .main-nav-link:active {
+    color: #cf711f;
+  }
+  
+  .main-nav-link.nav-cta:link,
+  .main-nav-link.nav-cta:visited {
+    padding: 1.2rem 2.4rem;
+    border-radius: 9px;
+    color: #fff;
+    background-color: #e67e22;
+  }
+  
+  .main-nav-link.nav-cta:hover,
+  .main-nav-link.nav-cta:active {
+    background-color: #cf711f;
+  }
+  
+  .btn-mobile-nav {
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: none; /* Hide by default */
+  }
+  
+  .icon-mobile-nav {
+    height: 24px; /* Adjust height as needed */
+    width: auto;
+  }
+  
+  .menu-open .btn-mobile-nav {
+    display: block; /* Show when menu is open */
+  }
+  
+  @media (max-width: 59em) {
+    html {
+      /* 8px / 16px = 0.5 = 50% */
+      font-size: 50%;
+    }
+  
+    .btn-mobile-nav {
+      display: block;
+      z-index: 15;
+    }
+    .main-nav {
+      flex-direction: column;
+      align-items: flex-start;
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+    
+    .main-nav-list {
+      display: none; /* Hide by default on mobile */
+      position: absolute;
+      top: 100%; /* Adjust as per your design */
+      left: 0;
+      color: rgb(0, 0, 0);
+      background-color: #fdf2e9;
+      width: 100%;
+      padding: 10px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Adjust as per your design */
+      transition: opacity 0.3s ease; /* Add transition for opacity */
+      opacity: 0; /* Initially set opacity to 0 */
+    }
+    
+    .menu-open .main-nav-list {
+      z-index: 5;
+      display: flex; /* Show when menu is open */
+      flex-direction: column;
+      opacity: 1; /* Change opacity to 1 to reveal the menu with transition */
+    }
+    
+    .main-nav-list li {
+     
+      width: 100%;
+      padding: 5%;
+      text-align: center;
+      margin-bottom: 10px; /* Adjust as per your design */
+      
+    }
+    
+    .main-nav-link:link,
+    .main-nav-link:visited {
+      display: block;
+      cursor: pointer;
+      font-size: large;
+      color: #010101;
+      font-size: auto;
+    }
+    .main-nav-list li:hover .main-nav-link {
+     color : blueviolet;
+    }
+    
+    
+  }
+  
+  /* STICKY NAVIGATION */
+  .sticky .header {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 8rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: rgba(255, 255, 255, 0.97);
+    z-index: 999;
+    box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.03);
+  }
+  
+  .sticky .section-hero {
+    margin-top: 9.6rem;
+  }
+  

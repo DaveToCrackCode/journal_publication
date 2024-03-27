@@ -1,0 +1,50 @@
+.about-description {
+    padding-top: 5%;
+    width: 90%;
+    margin-left: 5%;
+    line-height: 1.5;
+    font-size: 1.8rem;
+  }
+
+  .editor-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 5%;
+    margin-top: 5%;
+    flex-direction: row;
+    width: 90%;
+    line-height: 1.5;
+  }
+
+  .editor-token{
+    background-color: #fdf2e9;
+    padding: 2%;
+    margin-top: 4%;
+    width: 21%;
+    margin-left: 2.5%;
+    font-size: 1.5rem;
+  }
+
+  .editor-token:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    
+  }
+
+
+  @media ( max-width: 59em){
+    .editor-token{
+        width: 30%;
+        /* background-color: black; */
+    }
+  }
+  @media ( max-width: 25em){
+    .editor-token{
+        width: 45%;
+        /* background-color: black; */
+    }
+  }
+
+
+
+
+  

@@ -1,0 +1,56 @@
+/* ReviewerCard.css */
+
+.reviewer-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+  }
+  
+  .reviewer-list {
+    margin-top: 8px;
+  }
+  
+  .reviewer-item {
+    display: inline;
+    
+    background-color: #96f789;
+    padding: 8px;
+    margin-top: 4px;/* addreviewer.css */
+    flex-direction: row;
+    width: 300px;
+    margin-left: 5px;
+
+    /* Existing styles */
+    
+    .search-results {
+      margin-top: 10px;
+    }
+    
+    .search-results p {
+      font-weight: bold;
+    }
+    
+    .search-results ul {
+      list-style: none;
+      padding: 0;
+      max-height: 150px; /* Set maximum height for scrollable list */
+      overflow-y: auto; /* Enable vertical scroll for overflow */
+    }
+    
+    .search-results li {
+      cursor: pointer;
+      margin-top: 5px;
+      color: #3498db;
+      padding: 5px;
+    }
+    
+    /* Additional styles as needed */
+    
+  }
+  
+  .remove-reviewer {
+    cursor: pointer;
+    color: #ff0000;
+  }
+  
