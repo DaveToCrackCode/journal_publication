@@ -13,12 +13,9 @@ const Footer = () => {
           <a href="#" className="footer-logo">
             <img className="logo" alt="Journals Hub logo" src={logo} />
           </a>
-
-        
-
-          <p className="copyright">
-            Made with ❤️ by AKASH DAVE & GOVIND DANGI
-          </p>
+            Made with ❤️ by <br />
+            Akash Dave & Govind Dangi
+          
         </div>
 
         <div className="address-col">

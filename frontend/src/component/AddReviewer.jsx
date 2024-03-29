@@ -96,6 +96,7 @@ const ReviewerCard = ({ title, author, status, date }) => {
   };
 
   const handleSelectReviewer = (reviewer) => {
+    setSearchInput({ name: reviewer.name });
     setSelectedReviewer(reviewer);
     setNewReviewer(reviewer);
   };
@@ -121,19 +122,25 @@ const ReviewerCard = ({ title, author, status, date }) => {
   }, []);
 
   return (
-    <div className="reviewer-card">
-      <h3>Title:{journal?.title}</h3>
+    
+    <div className='reviewer-wrapper'>
+      <div className="reviewer-token">
+
+      <div className="reviewer-discription">
+      <h3>Title: <b>{journal?.title} </b></h3>
       <p>Abstract: {journal?.abstract}</p>
       <p>Status: {journal?.status}</p>
       <span>Journal-Pdf: <a href={journal?.journal_pdf} target='_blank' style={{display:"inline"}}>{journal?.journal_pdf}</a></span>
       <p>Journal-Category: {journal.journalType}</p>
       <h3 style={{fontWeight:"bold"}}>Author Detail</h3>
-      <p>Author:{journal?.author?.name}</p>
-      <p>Author-Email:{journal?.author?.email}</p>
+      <p>Author: {journal?.author?.name}</p>
       
-      <button onClick={handleAddReviewer}>Add Reviewer</button>
+
+      <p>Author-Email: {journal?.author?.email}</p>
+      
+      <button className='add-reviewer-btn' onClick={handleAddReviewer}>Add Reviewer</button>
       {
-        reviewers.length > 0 ? <button onClick={setReviewer}>Submit Reviewer</button> :null
+        reviewers.length > 0 ? <button className='add-reviewer-btn' onClick={setReviewer}>Submit Reviewer</button> :null
       }
       <div className="reviewer-list">
         {reviewers.map((reviewer, index) => (
@@ -163,6 +170,8 @@ const ReviewerCard = ({ title, author, status, date }) => {
           </ul>
         </div>
       )}
+      </div>
+      </div>
     </div>
   );
 };

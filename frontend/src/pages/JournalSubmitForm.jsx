@@ -10,7 +10,7 @@ const JournalSubmitForm = () => {
     title: '',
     abstract: '',
     pdfFile: 'null',
-    journalType: 'ml',
+    journalType: 'none',
   });
 
   const handleChange = (e) => {
@@ -58,44 +58,125 @@ const JournalSubmitForm = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div>
+       <div className="journal-instructions">
+            <h2><b>Instruction for Author</b></h2>
+            Submissions must be original and should not have been published previously or be under consideration for publication while being evaluated for this Journal.
+            <br /><br />
+            The following is the format to be followed, when the authors submit their papers. Also Authors are requested to submit their papers as a MS word file.
+            <br /><br />
+            <h3><b>Please note that most of the fonts mentioned below comes with Adobe Photoshop.</b></h3> 
+            <b>Page Layout :</b> <br />
+            <i>Size - A4 sheet <br />
+            Margins - 1.5” for top, bottom, left and right.</i> <br />
+            
+            <b>Paragraph :</b> <br />
+            <i>Line spacing – single</i> <br /> <br />
+
+            <b>Paper Format :</b> <br />
+
+            <table>
+              <tr>
+                <th className='table-blocks'>Headings</th>
+                <th className='table-blocks'>Font Style</th>
+                <th className='table-blocks'>Font Size</th>
+                <th className='table-blocks'>Italic</th>
+              </tr>
+
+              <tr>
+                <td className="table-blocks">Paper Title</td>
+                <td className="table-blocks">Adobe Arabic</td>
+                <td className="table-blocks">24</td>
+                <td className="table-blocks">No</td>
+              </tr>
+              <tr>
+                <td className="table-blocks">Author Name</td>
+                <td className="table-blocks">Adobe Caslon Pro</td>
+                <td className="table-blocks">12</td>
+                <td className="table-blocks">No</td>
+              </tr>
+              <tr>
+                <td className="table-blocks">Author Address</td>
+                <td className="table-blocks">Adobe Caslon Pro</td>
+                <td className="table-blocks">10</td>
+                <td className="table-blocks">Yes</td>
+              </tr>
+              <tr>
+                <td className="table-blocks">Abstract & Keywords</td>
+                <td className="table-blocks">Adobe Garamond Pro</td>
+                <td className="table-blocks">10</td>
+                <td className="table-blocks">Yes</td>
+              </tr>
+              <tr>
+                <td className="table-blocks">Subtitles</td>
+                <td className="table-blocks">Adobe Arabic</td>
+                <td className="table-blocks">18</td>
+                <td className="table-blocks">No</td>
+              </tr>
+              <tr>
+                <td className="table-blocks">Text & References</td>
+                <td className="table-blocks">Adobe Arabic</td>
+                <td className="table-blocks">14</td>
+                <td className="table-blocks">No</td>
+              </tr>
+            </table>
+
+      </div>
+      <div className="journal-instructions">
+        <h2><b>Note :</b></h2>
+        All the submissions will be <b>Blind peer-reviewed</b> by the panel of experts associated 
+        with the particular field. Submitted papers should meet the internationally accepted 
+        criteria and manuscripts should follow the style of the journal for the purpose of both reviewing and editing.
+      </div>
+
+
       <div className="form-container">
         <h2 className="text-center mb-4">Journal Submission Form</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="title" className="form-label">
-              Title <span className="text-danger">*</span>
-            </label>
-            <input type="text" className="form-control" id="title" name="title" value={formData.title} onChange={handleChange} required />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="abstract" className="form-label">
-              Abstract <span className="text-danger">*</span>
-            </label>
-            <textarea className="form-control" id="abstract" name="abstract" rows="4" value={formData.abstract} onChange={handleChange} required></textarea>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="pdfFile" className="form-label">
-              Journal PDF File <span className="text-danger">*</span>
-            </label>
-            <input type="file" className="form-control" id="pdfFile" name="pdfFile" onChange={handleChange} accept=".pdf" required />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="journalType" className="form-label">
-              Journal Type <span className="text-danger">*</span>
-            </label>
-            <select className="form-select" id="journalType" name="journalType" value={formData.journalType} onChange={handleChange} required>
-              <option value="ml">Machine Learning</option>
-              <option value="web-dev">Web Development</option>
-              <option value="deep-learning">Deep Learning</option>
-            </select>
-          </div>
-          <div className="d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </div>
-        </form>
+        <form className="cta-form" name="sign-up" onSubmit={handleSubmit} >
+                <div>
+                  <label htmlfor="name">Title</label>
+                  <input
+                    className="input"
+                    type="text"
+                    id="name"
+                    name="title"
+                    placeholder="Your Name"
+                    value={formData.title}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="abstract"> Abstract <span className="text-danger">*</span> </label>
+                    <textarea className="input" 
+                      name="abstract" 
+                      id='abstract'
+                      rows="4" 
+                      placeholder="Enter abstract here..."
+                      value={formData.abstract} 
+                      onChange={handleChange} required>
+                    </textarea>
+                </div>
+
+                <div>
+                  <label className="label" htmlFor="pdfFile" >Journal PDF File <span className="text-danger">*</span>
+                  </label>
+                  <input className="input" type="file" name="pdfFile" onChange={handleChange} accept=".pdf" required />
+                </div>
+
+                <div> 
+                  <label className="label" htmlFor="journalType">Journal Type <span className="text-danger">*</span></label>
+                  <select  className="input" name="journalType" value={formData.journalType} onChange={handleChange} required>
+                    <option value="none" selected disabled>Select</option>
+                    <option value="ml">Machine Learning</option>
+                    <option value="web-dev">Web Development</option>
+                    <option value="deep-learning">Deep Learning</option>
+                  </select>
+                </div>
+                <button className="submit-button" type="submit">Submit</button>
+              </form>
+    
       </div>
     </div>
   );

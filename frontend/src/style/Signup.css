@@ -150,5 +150,23 @@
   box-shadow: 0 0 0 0.8rem rgba(253, 242, 233, 0.5);
 }
 
+@media (max-width: 34em) {
+  .grid {
+    row-gap: 4.8rem;
+  }
+.cta {
+  grid-template-columns: 1fr;
+}
+
+.cta-text-box {
+  padding: 3.2rem;
+}
+
+.cta-img-box {
+  height: 32rem;
+  grid-row: 1;
+}
+}
+
   /* Add any additional styling as needed */
   

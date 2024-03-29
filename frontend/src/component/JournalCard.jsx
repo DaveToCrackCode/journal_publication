@@ -10,7 +10,7 @@ console.log(journal);
 
   return (
     <div className="journal-card">
-      <h3>Title: Cancer Detection </h3>
+      <h3>Title: {title} </h3>
       <p>Author: {author.name}</p>
       <p>Status: {status}</p>
       <p>Date: {date}</p>

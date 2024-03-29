@@ -13,14 +13,13 @@
   
   .reviewer-item {
     display: inline;
-    
     background-color: #96f789;
     padding: 8px;
-    margin-top: 4px;/* addreviewer.css */
+    margin:10%;
     flex-direction: row;
     width: 300px;
     margin-left: 5px;
-
+  }
     /* Existing styles */
     
     .search-results {
@@ -47,10 +46,50 @@
     
     /* Additional styles as needed */
     
-  }
+  
   
   .remove-reviewer {
     cursor: pointer;
     color: #ff0000;
   }
+  
+  .reviewer-description {
+    padding-top: 5%;
+    width: 90%;
+    margin-left: 5%;
+    line-height: 1.5;
+    font-size: 1.8rem;
+  }
+
+  .reviewer-wrapper{
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    line-height: 1.5;
+  }
+
+  .reviewer-token{
+    background-color: #fdf2e9;
+    padding: 2%;
+    margin-top: 4%;
+    width: 90%;
+    margin-left: 2.5%;
+    font-size: 1.5rem;
+  }
+
+  .reviewer-token:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    
+  }
+  .add-reviewer-btn{
+    background-color: #3498db;
+    color: #fff;
+    padding: 1%;
+    font-size: medium;
+    border: none;
+    border-radius: 5%;
+    cursor: pointer;
+    margin-left: 5%;
+  }
+
   

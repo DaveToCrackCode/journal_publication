@@ -15,7 +15,7 @@ const Profile = () => {
         "Content-Type": "application/json",
       };
       console.log("pppp");
-      const {data} = await toast.promise(
+      const { data } = await toast.promise(
         axios.get("http://127.0.0.1:5000/api/v1/author/getUserProfile", {
           headers,
         }),
@@ -26,7 +26,7 @@ const Profile = () => {
           loading: "Fetching Data in progress...",
         }
       );
-     
+
       console.log(data.data);
       setUserData(data.data);
     } catch (error) {
@@ -40,60 +40,74 @@ const Profile = () => {
 
   return (
     <>
-      <section className="register-section flex-center">
-        <div className="profile-container flex-center">
-          <h2 className="form-heading">Profile</h2>
-          <img src={img} alt="profile" className="profile-pic" />
-          <form className="register-form">
-            <div className="form-same-row">
-              <input
-                type="text"
-                name="name"
-                className="form-input"
-                placeholder="Enter your name"
-                value={userData?.name}
-                // onChange={inputChange}
-              />
+      <section>
+        <div className="container_">
+          <div className="cta">
+            <div className="cta-text-box">
+              <h2 className="heading-secondary">Profile</h2>
+
+              {/* <img src={img} alt="profile" className="profile-pic" /> */}
+
+              <form className="cta-form">
+                <div>
+                  <label htmlfor="name">Name</label>
+                  <input
+                    className="input"
+                    type="text"
+                    name="name"
+                    value={userData?.name}
+                  />
+                </div>
+
+                <div>
+                  <label htmlfor="email">Email</label>
+                  <input
+                    className="input"
+                    type="email"
+                    name="email"
+                    value={userData?.email}
+                  />
+                </div>
+
+                <div>
+                  <label htmlfor="qualification">Qualification</label>
+                  <input
+                    className="input"
+                    type="text"
+                    name="qualification"
+                    value={userData?.qualification}
+                  />
+                </div>
+
+                <div>
+                  <label htmlfor="isReviewer">Are You a Reviewer</label>
+
+                  <input
+                    className="input"
+                    type="text"
+                    name="reviewer"
+                    value={userData?.isReviewer}
+                  />
+                </div>
+
+                <button
+                  onClick={() => setReadOnly(false)}
+                  className="submit-button"
+                >
+                  Edit Profile{" "}
+                </button>
+              </form>
             </div>
-            <div className="form-same-row">
-              <input
-                type="email"
-                name="email"
-                className="form-input"
-                placeholder="Enter your email"
-                value={userData?.email}
-                // onChange={inputChange}
-              />
-            </div>
-            <div className="form-same-row">
-              <input
-                type="text"
-                name="qualification"
-                className="form-input"
-                placeholder="Enter your qualification number"
-                  value={userData?.qualification}
-                // onChange={inputChange}
-              />
-            </div>
-            <div className="form-same-row">
-              <input
-                type="text"
-                name="reviewer"
-                className="form-input"
-                placeholder="Enter your reviewer number"
-                 value={userData?.isReviewer}
-                // onChange={inputChange}
-              />
-            </div>
-            <button onClick={()=>setReadOnly(false)} className="btn form-btn">
-              Edit Profile
-            </button>
-          </form>
+            <div
+              className="profile-img"
+              role="img"
+              aria-label="Profile Picture"
+            ></div>
+          </div>
         </div>
-        
       </section>
       <div className="">
-       <Circle/>
+        <Circle />
       </div>
     </>
   );

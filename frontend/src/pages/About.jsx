@@ -132,6 +132,45 @@ const About = () => {
                 Department of Production Engineering, National Institute of Technology, Trichy, India
             </div>
         </div>
+
+        <div className="about-description">
+            <h2><b>Aim and Scope:</b></h2>
+            IJESACBT would take much care in making your article published without much delay with your kind cooperation. <br />
+            IJESACBT hopes that Researchers, Research scholars, Academician, Industrialists etc. would make use of this journal 
+            publication for the development of science and technology.
+
+        </div>
+
+        <div className="about-description">
+            <h2><b>Publication Charges:</b></h2>
+            <b>No Publication fee</b> is required for publishing the paper in our IJESACBT Journal. 
+            Publication is done at the free of cost. <br /> <br />
+
+            Suppose that the submitted paper is not in the prescribed form of the journal, 
+            then article formatting <b>fee of Rs.2000/ $100 (INDIA/Abroad)</b> will be charged 
+            from the authors, otherwise there is no fees for publication. <br /> <br />
+
+            As IJESACBT is a <b>non-profitable </b>open access journal that act only as a bridge between 
+            the authors and the readers, anyone can access the full version of the Published paper from 
+            Volume 1(Year 2010) onwards.
+        </div>
+
+        <div className="about-description">
+            <h2><b>CopyRight Claim:</b></h2>
+            Any claims of copyright infringement should be addressed to the Editor bearing the subject line <b>"Copyright Infringement"</b>. <br /><br />
+            The claim must be sufficed by documented evidence supporting the same version as being published or copyrighted or 
+            patented by the aggrieved party before the date of publication of the concerned IJESACBT article. On receipt of the claim, 
+            the IJESACBT Editorial Board, if found deemed, shall inform the IJESACBT author to provide an explanation; the discussion of which 
+            shall be transparent to both parties. The IJESACBT Board reserves the sole rights to decide the validity of any such claims. 
+            After deliberation, if the claim is found justified, the concerned manuscript will be removed from all IJESACBT archives and servers. In case, 
+            the changes required are minimal such as inclusion of references, the authors will be intimated to do the required amendments. The alternative 
+            version shall undergo peer-review as any other general submission and shall be published in the same issue(number) of the concerned volume. 
+            <br /><br />
+            Any claims on copyright will be addressed with the highest priority. A revert mail will be dispatched within 3 working days provided the claim 
+            is supported with documented evidence.
+
+
+        </div>
         
     </div>
   );

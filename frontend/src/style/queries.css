@@ -103,15 +103,6 @@
   .gallery {
     grid-template-columns: repeat(6, 1fr);
   }
-
-  .cta {
-    grid-template-columns: 3fr 2fr;
-  }
-
-  .cta-form {
-    grid-template-columns: 1fr;
-  }
-
   .btn--form {
     margin-top: 1.2rem;
   }
@@ -203,21 +194,17 @@
   .step-img-box:nth-child(6) {
     grid-row: 5;
   }
+  .step-img-box:nth-child(10) {
+    grid-row: 9;
+  }
 
   .step-img-box {
     transform: translateY(2.4rem);
   }
 
   
-  .cta {
-    grid-template-columns: 1fr;
-  }
-
-  .cta-text-box {
-    padding: 3.2rem;
-  }
-
-  .cta-img-box {
+  
+  .profile-img {
     height: 32rem;
     grid-row: 1;
   }
