@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../style/profile.css";
-import img from "../img/customers/customer-3.jpg";
+import img from "../img/customers/dummy-cust.jpeg";
 import Circle from "../component/Circle";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -42,11 +42,11 @@ const Profile = () => {
     <>
       <section>
         <div className="container_">
-          <div className="cta">
+          <div className="cta" style={{alignItems: 'center'}}>
             <div className="cta-text-box">
               <h2 className="heading-secondary">Profile</h2>
 
-              {/* <img src={img} alt="profile" className="profile-pic" /> */}
+              {/* <img src={userData?.image} alt="profile" className="profile-pic" /> */}
 
               <form className="cta-form">
                 <div>
@@ -98,11 +98,14 @@ const Profile = () => {
                 </button>
               </form>
             </div>
-            <div
-              className="profile-img"
+            
+            <img 
+              className="profile-image"
               role="img"
               aria-label="Profile Picture"
-            ></div>
+              src={userData?.image || img}
+            />
+            
           </div>
         </div>
       </section>

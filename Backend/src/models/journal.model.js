@@ -43,8 +43,15 @@ const journalSchema = new mongoose.Schema({
     required: true,
   },
   reviewers: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    status: {
+      type: String,
+      enum: ['none', 'accept', 'reject'],
+      default: 'none'
+    },
+    reviewer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   }],
   
   // Optional fields can be added here (e.g., author notes, reviewers, etc.)

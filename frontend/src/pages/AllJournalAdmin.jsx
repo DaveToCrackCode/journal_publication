@@ -3,7 +3,7 @@ import JournalCard from '../component/JournalCard';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const AllJournal = () => {
+const AllJournalAdmin = () => {
   const [journals, setJournals] = useState([]);
 
   const getAllJournals = async () => {
@@ -46,4 +46,4 @@ const AllJournal = () => {
   );
 };
 
-export default AllJournal;
+export default AllJournalAdmin;

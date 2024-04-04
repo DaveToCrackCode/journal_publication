@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
     password: '',
     qualification: '',
     degree_pdf: null,
+    image: null, // New field for image upload
     isReviewer: 'none',
     specialistArea: 'none',
     agreeTerm: false,
@@ -131,7 +132,18 @@ import { useNavigate } from 'react-router-dom';
                       onChange={handleChange}
                     />
                 </div>
-
+                <div>
+              <label className="label" htmlFor="image">
+                Profile Image
+              </label>
+              <input
+                className="input"
+                type="file"
+                id="image"
+                name="image"
+                onChange={handleChange}
+              />
+            </div>
                 <div>
                   <label className="label" htmlFor="degree_pdf">
                     Degree PDF

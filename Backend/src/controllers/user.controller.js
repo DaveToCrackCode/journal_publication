@@ -37,10 +37,10 @@ const registerUser =asyncHandler(async(req,res)=>{
     
     //step1:
     try {
-        console.log(req.body);
         const {name,email,password,qualification,isReviewer, specialistArea} = req.body;
         // console.log(req.body);
-    
+        //console.log( req.files);
+        //console.log( req.files['image'][0].path);
         //step2:
         if(
             [name,email,password,qualification,isReviewer, specialistArea].some((field)=> field?.trim() === "")
@@ -56,7 +56,7 @@ const registerUser =asyncHandler(async(req,res)=>{
         }
         //console.log(req.files);
         //step 4:
-        const degreeLocalPath = req.file?.path;
+        const degreeLocalPath = req.files['degree_pdf'][0].path;
         //console.log(degreeLocalPath);
         
         if(!degreeLocalPath)
@@ -71,7 +71,15 @@ const registerUser =asyncHandler(async(req,res)=>{
             console.log(degree);
             throw new ApiError(400,"degree file is required");
         }
-        
+         
+        const imageLocalPath = req.files['image'][0].path;
+        if(!imageLocalPath){
+            throw new ApiError(400,"Image file is required");
+        }
+        const image = await uploadOnCloudinary(imageLocalPath, "user_avtar");
+        if (!image) {
+            throw new ApiError(400, "Image file upload failed");
+        }
         //step 5:
         // let flag=false;
         // if(isReviewer=="yes"){
@@ -83,6 +91,7 @@ const registerUser =asyncHandler(async(req,res)=>{
             password,
             qualification,
             degree_pdf:degree.url,
+            image:image.url,
             isReviewer:false,
             specialistArea,
         });
@@ -221,9 +230,9 @@ const uplaodJournal = asyncHandler(async(req,res)=>{
 const getJournal = asyncHandler(async(req,res)=>{
     try {
         const user = req.user;
-
-        const journals = await Journal.find({ author: mongoose.Types.ObjectId(user._id) });
-
+       // console.log(user);
+        const journals = await Journal.find({ author: user._id});
+        console.log(journals);
 
         if(!journals){
             throw new ApiError(400,"Some error when fetching journal from database");
@@ -244,6 +253,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
     const userId = req.user._id; 
     // Using MongoDB Aggregation Pipeline to get user profile details with journal counts
     const userProfile = await User.aggregate([
+        {
+            $match: { _id: new mongoose.Types.ObjectId(userId) } // Match user by ID
+        },
       {
         $lookup: {
           from: 'Journal', //  your Journal model collection is named 'journals'
@@ -257,6 +269,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
           _id: 1,
           name: 1,
           email: 1,
+          image:1,
           qualification:1,
           isReviewer:1,
           specialistArea:1,
@@ -299,10 +312,54 @@ const getUserProfile = asyncHandler(async (req, res) => {
     );
   });
 
+  const getCompleteDetailsOfJournal = asyncHandler(async (req, res) => {
+    try {
+        const journalId = req.params.id;
+
+        const journalDetails = await Journal.findById(journalId).populate('author', 'name email');
+        if (!journalDetails) {
+            throw new ApiError(400, "Journal not Found");
+        }
+
+        const totalReviewer = journalDetails.reviewers.length;
+        let acceptedReviewers = 0;
+        let rejectedReviewers = 0;
+        let reviewerDetails = [];
+
+        await Promise.all(journalDetails.reviewers.map(async reviewer => {
+            const output = reviewer._id.toString();
+            const data = await User.findById(output).select('name email');
+            reviewerDetails.push({ status: reviewer.status, reviewerData: data });
+
+            if (reviewer.status === 'accept') {
+                acceptedReviewers++;
+            } else if (reviewer.status === 'reject') {
+                rejectedReviewers++;
+            }
+        }));
+
+        return res.status(200).json({
+            message: "Data fetched successfully",
+            data: {
+                reviewerDetails,
+                journalDetails,
+                acceptedReviewers,
+                rejectedReviewers,
+                totalReviewer
+            }
+        });
+    } catch (error) {
+        console.log("Error while fetching complete details of journal in userController:", error);
+        throw new ApiError(500, "Some internal Server Error");
+    }
+});
+
+
 export {
     registerUser,
     loginUser,
     uplaodJournal,
     getJournal,
-    getUserProfile
+    getUserProfile,
+    getCompleteDetailsOfJournal
 }

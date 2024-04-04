@@ -1,10 +1,10 @@
-.profile-img{
-  background-image: linear-gradient(
-      to right bottom,
-      rgba(235, 151, 78, 0.35),
-      rgba(230, 125, 34, 0.35)
-    ),
-    url("../img/customers/customer-2.jpg");
-  background-size: cover;
-  background-position: center;
+.profile-image{
+  width: 80%;
+}
+@media (max-width: 34em){
+.profile-image {
+    height: 32rem;
+    width: 100%;
+    grid-row: 1;
+}
 }

@@ -1,5 +1,4 @@
 import "./App.css";
-// import './style/app.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -7,16 +6,15 @@ import JournalSubmitForm from "./pages/JournalSubmitForm";
 import { Toaster } from "react-hot-toast";
 import { Protected, Public, Admin, Reviewer } from "./middleware/auth.js";
 import Home from "./pages/Home";
-// import Circle from './component/Circle.jsx';
 
 import About from "./pages/About.jsx";
 import Profile from "./pages/Profile.jsx";
-import Navbar from "./component/Navbar.jsx";
-import Footer from "./component/Footer.jsx";
 import AllReviewer from "./pages/AllReviewer.jsx";
-import AllJournal from "./pages/AllJournal.jsx";
+import AllJournalAdmin from "./pages/AllJournalAdmin.jsx";
 import AddReviewer from "./component/AddReviewer.jsx";
 import Layout from './component/Layout.jsx';
+import AllSubmittedJournalAuthor from './pages/AllSubmittedJournalAuthor.jsx';
+import CompleteJournalDetailsAuthor from './pages/CompleteJournalDetailsAuthor.jsx'
 
 function App() {
   return (
@@ -69,6 +67,14 @@ function App() {
             path="/all-submit-paper"
             element={
               <Protected>
+               <Layout> <AllSubmittedJournalAuthor /></Layout>
+              </Protected>
+            }
+          />
+          <Route
+            path="/all-submit-paper"
+            element={
+              <Protected>
                <Layout> <JournalSubmitForm /></Layout>
               </Protected>
             }
@@ -77,7 +83,7 @@ function App() {
             path="/all-journal"
             element={
               <Admin>
-              <Layout>  <AllJournal /></Layout>
+              <Layout>  <AllJournalAdmin /></Layout>
               </Admin>
             }
           />
@@ -87,6 +93,14 @@ function App() {
               <Admin>
                 <Layout><AllReviewer /></Layout>
               </Admin>
+            }
+          />
+           <Route
+            path="/journal/author/:id"
+            element={
+              <Protected>
+               <Layout> <CompleteJournalDetailsAuthor /></Layout>
+              </Protected>
             }
           />
           <Route
