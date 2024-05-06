@@ -1,95 +1,154 @@
 /* ReviewerCard.css */
 
+  .search-results {
+    margin-top: 10px;
+  }
+  
+  .search-results p {
+    font-weight: bold;
+  }
+  
+  .search-results ul {
+    list-style: none;
+    padding: 0;
+    max-height: 150px; /* Set maximum height for scrollable list */
+    overflow-y: auto; /* Enable vertical scroll for overflow */
+  }
+  
+  .search-results li {
+    cursor: pointer;
+    margin-top: 5px;
+    color: #3498db;
+    padding: 5px;
+  }
+  
+  /* Additional styles as needed */
+  
+
+
+.remove-reviewer {
+  cursor: pointer;
+  color: #ff0000;
+}
+
+.reviewer-description {
+  padding-top: 5%;
+  width: 90%;
+  margin-left: 5%;
+  line-height: 1.5;
+  font-size: 1.8rem;
+}
+
+.reviewer-wrapper{
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  line-height: 1.5;
+}
+
+.reviewer-token{
+  background-color: #fdf2e9;
+  padding: 2%;
+  margin-top: 4%;
+  width: 90%;
+  margin-left: 2.5%;
+  font-size: 1.5rem;
+}
+
+.reviewer-token:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  
+}
+.add-reviewer-btn{
+  background-color: #3498db;
+  color: #fff;
+  padding: 1%;
+  font-size: small;
+  border: none;
+  border-radius: 5%;
+  cursor: pointer;
+  margin-left: 5%;
+}
+
+
 .reviewer-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 16px;
-  }
-  
-  .reviewer-list {
-    margin-top: 8px;
-  }
-  
-  .reviewer-item {
-    display: inline;
-    background-color: #96f789;
-    padding: 8px;
-    margin:10%;
-    flex-direction: row;
-    width: 300px;
-    margin-left: 5px;
-  }
-    /* Existing styles */
-    
-    .search-results {
-      margin-top: 10px;
-    }
-    
-    .search-results p {
-      font-weight: bold;
-    }
-    
-    .search-results ul {
-      list-style: none;
-      padding: 0;
-      max-height: 150px; /* Set maximum height for scrollable list */
-      overflow-y: auto; /* Enable vertical scroll for overflow */
-    }
-    
-    .search-results li {
-      cursor: pointer;
-      margin-top: 5px;
-      color: #3498db;
-      padding: 5px;
-    }
-    
-    /* Additional styles as needed */
-    
-  
-  
-  .remove-reviewer {
-    cursor: pointer;
-    color: #ff0000;
-  }
-  
-  .reviewer-description {
-    padding-top: 5%;
-    width: 90%;
-    margin-left: 5%;
-    line-height: 1.5;
-    font-size: 1.8rem;
-  }
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5%;
+  margin: 15px;
+  font-size: larger;
+  line-height: 1.8;
+}
 
-  .reviewer-wrapper{
-    display: flex;
-    justify-content: center;
-    width: 90%;
-    line-height: 1.5;
-  }
+.reviewer-card p{
+  font-size: larger;
+}
 
-  .reviewer-token{
-    background-color: #fdf2e9;
-    padding: 2%;
-    margin-top: 4%;
-    width: 90%;
-    margin-left: 2.5%;
-    font-size: 1.5rem;
-  }
+.reviewer-card h3{
+  font-weight: bold;
+  font-size: x-large;
+}
 
-  .reviewer-token:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
-    
-  }
-  .add-reviewer-btn{
-    background-color: #3498db;
-    color: #fff;
-    padding: 1%;
-    font-size: medium;
-    border: none;
-    border-radius: 5%;
-    cursor: pointer;
-    margin-left: 5%;
-  }
+.reviewer-list {
+  margin-top: 8px;
+}
 
-  
+.reviewer-item {
+  display: inline;
+  background-color: #96f789;
+  padding: 8px;
+  margin-top: 4px;
+  flex-direction: row;
+  width: 300px;
+  margin-left: 5px;
+}
+
+/* Button styles */
+
+.reviewer-item button {
+  margin-right: 5px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.feedback-button {
+  text-decoration: none;
+  width: auto;
+  background-color: #2196f3;
+  color: #ffffff;
+   padding:  5px;
+  font-size: large;
+  text-align: center;
+}
+
+.accept-button {
+  background-color: #4caf50;
+  color: white;
+  padding-left: 2%;
+  padding-right: 2%;
+  margin-right: 10px;
+  width: auto;
+  border-radius: 5px;
+  font-size: large;
+  border: none;
+}
+
+.reject-button {
+  background-color: #f44336;
+  color: white;
+  padding-left: 2%;
+  padding-right: 2%;
+  width: auto;
+  border-radius: 5px;
+  font-size: large;
+  border: none;
+}
+.accept-button:hover{
+  background-color: darkgreen;
+}
+.reject-button:hover{
+  background-color: darkred;
+}
+

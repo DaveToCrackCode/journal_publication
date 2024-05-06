@@ -46,6 +46,7 @@ export const Reviewer = ({ children }) => {
     const user = jwtDecode(localStorage.getItem("token"));
   
     if (user.isReviewer) {
+      console.log(user.isReviewer);
       return children;
     }
     return (

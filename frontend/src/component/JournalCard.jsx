@@ -20,13 +20,19 @@ const [user, setUser] = useState(
       <p>Status: {status}</p>
       <p>Date: {date}</p>
       <p>Subject Category:{journalType}</p>
-      {
-         user.isAdmin ?<Link to={`/journal/${journal._id}`} className="detail-button">
+      { user.isAdmin ? (
+    <Link to={`/journal/${journal._id}`} className="detail-button">
         Check More Details / Add Reviewers
-      </Link>:<Link to={`/journal/author/${journal._id}`} className="detail-button">
+    </Link>
+) : user.isReviewer ? (
+    <Link to={`/journal/reviewer/${journal._id}`} className="detail-button">
+        Take Action on the Paper
+    </Link>
+) : (
+    <Link to={`/journal/author/${journal._id}`} className="detail-button">
         Check More Details
-      </Link>
-      }
+    </Link>
+)}
     </div>
   );
 };

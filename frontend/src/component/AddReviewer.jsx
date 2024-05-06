@@ -134,8 +134,6 @@ const ReviewerCard = ({ title, author, status, date }) => {
       <p>Journal-Category: {journal.journalType}</p>
       <h3 style={{fontWeight:"bold"}}>Author Detail</h3>
       <p>Author: {journal?.author?.name}</p>
-      
-
       <p>Author-Email: {journal?.author?.email}</p>
       
       <button className='add-reviewer-btn' onClick={handleAddReviewer}>Add Reviewer</button>
