@@ -83,9 +83,9 @@ const Navbar = () => {
               
               {!isLoggedIn && (
                 <>
-                  <li><Link className="main-nav-link" to="/signup" onClick={handleNavItemClick}>Signup</Link></li>
-                  <li><Link className="main-nav-link" to="/login" onClick={handleNavItemClick}>Login</Link></li>
                   <li><Link className="main-nav-link" to="/" onClick={handleNavItemClick}>Home</Link></li>
+                  <li><Link className="main-nav-link" to="/signup" onClick={handleNavItemClick}>Register</Link></li>
+                  <li><Link className="main-nav-link" to="/login" onClick={handleNavItemClick}>Login</Link></li>
                 </>
               )}
             </ul>

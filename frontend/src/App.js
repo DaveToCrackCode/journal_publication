@@ -11,8 +11,6 @@ import Home from "./pages/Home";
 
 import About from "./pages/About.jsx";
 import Profile from "./pages/Profile.jsx";
-import Navbar from "./component/Navbar.jsx";
-import Footer from "./component/Footer.jsx";
 import AllReviewer from "./pages/AllReviewer.jsx";
 import AllJournal from "./pages/AllJournal.jsx";
 import AddReviewer from "./component/AddReviewer.jsx";
@@ -22,6 +20,7 @@ import CompleteJournalDetailsAuthor from "./pages/CompleteJournalDetailsAuthor.j
 import AllJournalForReviewing from "./pages/reviewerPages/AllJournalForReviewing.jsx";
 import FeedBackOnJournal from "./pages/reviewerPages/FeedBackOnJournal.jsx";
 import FeedBackPage from "./pages/reviewerPages/FeedBackPage.jsx";
+import Instructions from "./pages/Instructions.jsx";
 function App() {
   return (
     <>
@@ -67,6 +66,15 @@ function App() {
               </Layout>
             }
           />
+          <Route
+            path="/instructions"
+            element={
+              <Layout>
+                <Instructions />
+              </Layout>
+            }
+          />
+
 
           <Route
             path="/submit_paper"

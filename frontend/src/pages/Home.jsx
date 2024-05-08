@@ -35,7 +35,7 @@ const Home = () => {
             {/* <Link className="main-nav-link" to="/" }>Home</Link> */}
             <a href="/about" className="btn btn--full margin-right-sm" >About IJESACBT</a>
 
-            <a href="#how" className="btn btn--outline">Learn more &darr;</a>
+            <a href="/instructions" className="btn btn--outline">Guidelines &darr;</a>
             <div className="delivered-meals">
               <div className="delivered-imgs">
                 <img src={cust1} alt="Customer photo" />
@@ -179,8 +179,6 @@ const Home = () => {
     </div>
   </section>
   </main>
-  
-    
       <Info/>
     
     </>

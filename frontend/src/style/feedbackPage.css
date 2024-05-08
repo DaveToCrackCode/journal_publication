@@ -69,7 +69,7 @@
     width: 90%;
     background-color: var(--background-color);
     color: var(--font-color);
-    height: 25px;
+    /* height: 25px; */
     border: 1px solid #ccc;
     border-radius: 3px;
   }
