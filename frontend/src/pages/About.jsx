@@ -14,6 +14,15 @@ const About = () => {
         online journal in English published quarterly. The aim of IJESACBT is to publish peer reviewed research and review articles, 
         faster without delay (within 2-3 week) in the developing field of engineering science, computing and bio-technology.
         </div>
+
+        <div className="about-description">
+            <h2><b>Aim and Scope:</b></h2>
+            IJESACBT would take much care in making your article published without much delay with your kind cooperation. <br />
+            IJESACBT hopes that Researchers, Research scholars, Academician, Industrialists etc. would make use of this journal 
+            publication for the development of science and technology.
+
+        </div>
+
         <div className="about-description">
             <h2><b>Journal Policy</b></h2>
             IJESACBT provides an international forum for the electronic publication of high-quality scholarly articles in all areas of Engineering, 
@@ -133,28 +142,9 @@ const About = () => {
             </div>
         </div>
 
-        <div className="about-description">
-            <h2><b>Aim and Scope:</b></h2>
-            IJESACBT would take much care in making your article published without much delay with your kind cooperation. <br />
-            IJESACBT hopes that Researchers, Research scholars, Academician, Industrialists etc. would make use of this journal 
-            publication for the development of science and technology.
+       
 
-        </div>
-
-        <div className="about-description">
-            <h2><b>Publication Charges:</b></h2>
-            <b>No Publication fee</b> is required for publishing the paper in our IJESACBT Journal. 
-            Publication is done at the free of cost. <br /> <br />
-
-            Suppose that the submitted paper is not in the prescribed form of the journal, 
-            then article formatting <b>fee of Rs.2000/ $100 (INDIA/Abroad)</b> will be charged 
-            from the authors, otherwise there is no fees for publication. <br /> <br />
-
-            As IJESACBT is a <b>non-profitable </b>open access journal that act only as a bridge between 
-            the authors and the readers, anyone can access the full version of the Published paper from 
-            Volume 1(Year 2010) onwards.
-        </div>
-
+       
         <div className="about-description">
             <h2><b>CopyRight Claim:</b></h2>
             Any claims of copyright infringement should be addressed to the Editor bearing the subject line <b>"Copyright Infringement"</b>. <br /><br />

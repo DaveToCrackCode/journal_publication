@@ -44,18 +44,27 @@ const Instructions = () => {
         papers should meet the internationally accepted criteria and manuscripts should follow the style of the journal for the purpose of both reviewing and editing.
         </div>
       </div>
+      
+
       <div className="authors-token">
         <h1>
           <i>
             <b>About Payment</b>
           </i>
         </h1>
-       <div className="description">
-       <h2><b>Note :</b></h2>
-        No Publication fee is required for publishing the paper in our IJESACBT Journal. Publication is done at the free of cost.
-        Suppose that the submitted paper is not in the prescribed form of the journal, then article formatting fee of Rs.2000/ $100 (INDIA/Abroad) will be charged from the authors, otherwise there is no fees for publication.
-        As IJESACBT is a non-profitable open access journal that act only as a bridge between the authors and the readers, anyone can access the full version of the Published paper from Volume 1(Year 2010) onwards.
-       </div>
+        <div className="about-description">
+            <h2><b>Publication Charges:</b></h2>
+            <b>No Publication fee</b> is required for publishing the paper in our IJESACBT Journal. 
+            Publication is done at the free of cost. <br /> <br />
+
+            Suppose that the submitted paper is not in the prescribed form of the journal, 
+            then article formatting <b>fee of Rs.2000/ $100 (INDIA/Abroad)</b> will be charged 
+            from the authors, otherwise there is no fees for publication. <br /> <br />
+
+            As IJESACBT is a <b>non-profitable </b>open access journal that act only as a bridge between 
+            the authors and the readers, anyone can access the full version of the Published paper from 
+            Volume 1(Year 2010) onwards.
+        </div>
       </div>
       <div className="authors-token">
         <h1>

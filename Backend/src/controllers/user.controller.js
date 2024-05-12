@@ -6,6 +6,8 @@ import {User} from "../models/user.model.js";
 import {Journal} from "../models/journal.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import {uploadOnCloudinary} from "../utils/cloudinary.js";
+import { ReviewerRequest } from "../models/reviewerRequest.model.js";
+import { PaperId } from "../models/paperId.model.js";
 
 
 //yha pr ham ek alag se access token or refresh token genarate krne ki method banayenge 
@@ -37,13 +39,13 @@ const registerUser =asyncHandler(async(req,res)=>{
     
     //step1:
     try {
-        const {name,email,password,qualification,isReviewer, specialistArea} = req.body;
-        // console.log(req.body);
+        const {name,email,password,qualification,contact,address,city,state,country,isReviewer, specialistArea} = req.body;
+        console.log(req.body);
         //console.log( req.files);
         //console.log( req.files['image'][0].path);
         //step2:
         if(
-            [name,email,password,qualification,isReviewer, specialistArea].some((field)=> field?.trim() === "")
+            [name,email,password,qualification,contact,address,city,state,country,isReviewer, specialistArea].some((field)=> field?.trim() === "")
         )
         {
             throw  new ApiError(400,"All fields are required");
@@ -82,14 +84,17 @@ const registerUser =asyncHandler(async(req,res)=>{
         }
         //step 5:
         // let flag=false;
-        // if(isReviewer=="yes"){
-             // yha par ham isReviewer field ka logic likhenge 
-        // }
+        
         const user = await User.create({
             name,
             email,
             password,
             qualification,
+            contact,
+            address,
+            city,
+            state,
+            country,
             degree_pdf:degree.url,
             image:image.url,
             isReviewer:false,
@@ -104,7 +109,12 @@ const registerUser =asyncHandler(async(req,res)=>{
         {
             throw new ApiError(500,"Something went wrong while regestering the User");
         }
-    
+        if(isReviewer === "yes"){
+            const ReviewerReq = await ReviewerRequest.create({
+                reviewerId:createdUser._id
+            });
+
+        }
         return res.status(200).json(
             new ApiResponse(200,createdUser, "User registered Successfully")
         )
@@ -178,12 +188,12 @@ const loginUser =asyncHandler(async(req,res)=>{
 const uplaodJournal = asyncHandler(async(req,res)=>{
        try {
         // console.log(req.file.path);
-           const {title,abstract,journalType} = req.body;
-           //console.log(title);
+           const {title,keyword,abstract,journalType} = req.body;
+           console.log(req.body);
            const user = req.user;
            
            if(
-            [title,abstract,journalType].some((field)=> field?.trim() === "")
+            [title,keyword,abstract,journalType].some((field)=> field?.trim() === "")
            )
            {
                 throw  new ApiError(400,"All fields are required");
@@ -198,9 +208,21 @@ const uplaodJournal = asyncHandler(async(req,res)=>{
            if(!journalUrl){
               throw new ApiError(400,"Some error when upload the journal on server");
            }
-           
+            
+           let paper_id = await PaperId.findOne();
+        // IF PAPER ID IS NULL 
+           if(paper_id == null){
+            const a= await PaperId.create({
+                pId:999
+            });
+           }
+          const journal_id = paper_id.pId+1;
+          paper_id.pId = journal_id;
+          await paper_id.save();
            const data =  await Journal.create({
+              paper_id:journal_id,
               title,
+              keyword,
               abstract,
               journal_pdf: journalUrl.url,
               author:user._id,

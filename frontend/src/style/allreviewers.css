@@ -1,0 +1,63 @@
+#reviewers-table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  
+  #reviewers-table td, #reviewers-table th {
+    align-content: center;
+    align-items: center;
+    width: auto;
+    cursor: pointer;
+    font-size: large;
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  .more-button{
+    background-color: #006eff;
+    padding: 3px;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
+
+  .remind-button{
+    background-color: #ff2dd8;
+    padding: 8px;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
+  .remind-button:hover{
+    color: black;
+  }
+  .more-button:hover{
+    color: black;
+  }
+  
+  
+  #reviewers-table tr:nth-child(even){background-color: #f2f2f2;}
+  /* #reviewers-table tr td:hover {background-color: #ddd;} */
+  #reviewers-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #e67e22;
+    color: white;
+  }
+
+  @media (max-width: 59em) {
+    #reviewers-table{
+        width: 100%;
+    }
+    #reviewers-table td, #reviewers-table th {
+      padding: 2px;
+    font-size: small;
+    }
+
+  }

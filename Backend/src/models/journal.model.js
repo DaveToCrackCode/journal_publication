@@ -3,10 +3,18 @@ import mongoose,{Schema} from "mongoose";
 // const User = require('./User'); // Assuming your User schema is in a separate file
 
 const journalSchema = new mongoose.Schema({
+  paper_id:{
+    type:Number,
+    required:true
+  },
   title: {
     type: String,
     required: true,
     // trim: true,
+  },
+  keyword:{
+    type:String,
+    required:true
   },
   abstract: {
     type: String,
@@ -15,12 +23,12 @@ const journalSchema = new mongoose.Schema({
   },
   journal_pdf: {
     type: String,
-    required: true,
+   required: true,
     
   },
   status: {
     type: String,
-    enum: ['pending', 'allowted', 'complete', 'published'],
+    enum: ['pending', 'UnderReview', 'minor','major','submitted', 'published'],
     default: 'pending',
   },
   date: {
@@ -45,7 +53,7 @@ const journalSchema = new mongoose.Schema({
   reviewers: [{
     status: {
       type: String,
-      enum: ['none', 'accept', 'reject'],
+      enum: ['none', 'accept', 'reject','feedbackGiven'],
       default: 'none'
     },
     reviewer: {

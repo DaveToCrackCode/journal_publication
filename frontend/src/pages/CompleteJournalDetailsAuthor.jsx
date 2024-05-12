@@ -65,28 +65,12 @@ const CompleteJournalDetailsAuthor = () => {
             <hr />
             <h3 style={{ fontWeight: "bold" }}>Author Detail</h3>
             <p>Author: {data?.journalDetails?.author?.name}</p>
-            <p>Author-Email: {data?.journalDetails?.author?.email}</p>
+            <p>Email: {data?.journalDetails?.author?.email}</p>
           </div>
 
           <hr />
-
-          <h3>
-            {" "}
-            <b>Reviewers Details</b>
-          </h3>
-          <div className="reviewer-discription">
-            {data &&
-              data.reviewerDetails.length &&
-              data.reviewerDetails.map((reviewer, index) => (
-                <div>
-                  <p>Name:{reviewer?.reviewerData?.name}</p>
-                  <p>Email:{reviewer?.reviewerData?.email}</p>
-                  <p>Status:{reviewer?.status}</p>
-                </div>
-              ))}
-
-              <hr />
-          <h3 style={{ fontWeight: "bold" }}>Progress Of Your Paper </h3>
+          <div className="reviewer-discription">     
+          <h3 style={{ fontWeight: "bold" }}>Progress Of the Paper </h3>
 
           <p>Reviewers Added: {data?.totalReviewer}</p>
           <p>Reviewers Accepted: {data?.acceptedReviewers}</p>

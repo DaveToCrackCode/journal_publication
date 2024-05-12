@@ -29,8 +29,9 @@ const Home = () => {
              Welcome to IJESACBT!
             </h1>
             <p className="hero-description">
-              The smart platform where you can publish your journal with added Reviewers And
-              after successfully reviewed it will be published.
+            IJESACBT would take much care in making your article published without much delay with your kind cooperation.
+            IJESACBT hopes that Researchers, Research scholars, Academician, 
+            Industrialists etc. would make use of this journal publication for the development of science and technology.
             </p>
             {/* <Link className="main-nav-link" to="/" }>Home</Link> */}
             <a href="/about" className="btn btn--full margin-right-sm" >About IJESACBT</a>

@@ -3,51 +3,48 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
 import "../../style/feedbackPage.css"
+import { useParams } from 'react-router-dom';
 
 const FeedBackPage = () => {
     const navigate = useNavigate();
-    const [communication, setCommunication] = useState(0);
-    const [knowledge, setKnowledge] = useState(0);
-    const [confidence, setConfidence] = useState(0);
-    const [takenInterview, setTakenInterview] = useState("");
-    const [feedback, setFeedback] = useState("");
-
+    let [formData,setFormData] = useState(new FormData());
+    const {id} = useParams();
+    const handleChange = (e)=>{
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value
+    });
+    }
     const handleFeedback = async (e) => {
         e.preventDefault();
-        const token = localStorage.getItem("token");
-          const config = {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          };
-        const formData = {
-          communication,
-          knowledge,
-          confidence,
-          takenInterview,
-          feedback,
-        };
-    
-    
-        try {
-          const { data } = await toast.promise(
-            axios.post("http://127.0.0.1:5000/api/mock/feedback", 
-            formData, config),
-            {
-              pending: "Feedback Submission in progress...",
-              success: "Feedback Submitted successfully",
-              error: "Unable to Submit Feedback",
-              loading: "Submission in progress...",
-            }
-          );
-          console.log("feedback submission");
-          navigate("/");
-          // Handle success, redirect, or show a success message
-        } catch (error) {
-          console.error("Error submitting feedback form:", error);
-          // Handle errors, show an error message, etc.
+        //console.log(formData);
+        //const token = localStorage.getItem("token");
+        //console.log(token);
+        formData ={
+          ...formData,
+          journalId:id
         }
+        try {
+          const headers = {
+            Authorization: localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+          };
+    
+          const response = await axios.post('http://127.0.0.1:5000/api/v1/reviewer/feedback', formData,{ headers });
+        // console.log(response);
+          if (response.status === 200) {
+            toast.success('Feedback submitted Successfully');
+          } else if(response.status === 201){
+            toast.error("Feedback is Already added by you");
+          }
+          else {
+            toast.error('Failed to submit feedback');
+          }
+        } catch (error) {
+          console.error('Feedback:', error);
+          toast.error('Some internal server error');
+        }
+         
       };
     
   return (
@@ -61,16 +58,16 @@ const FeedBackPage = () => {
                       <table>
                         <tr>
                           <td>
-                            <label htmlFor="communication">
+                            <label htmlFor="q1">
                             Is the abstract concise and informative, summarizing the key findings and significance of the research?
                             </label>
                           </td>
                           <td>
                           <select
-                              id="takenInterview"
-                              value={takenInterview}
+                              id="q1"
+                              value={formData.q1}
                               onChange={(e) =>
-                                setTakenInterview(e.target.value)
+                                handleChange(e)
                               }
                               required
                             >
@@ -82,16 +79,16 @@ const FeedBackPage = () => {
                         </tr>
                         <tr>
                           <td>
-                            <label htmlFor="communication">
+                            <label htmlFor="q2">
                             Are the research methods appropriate for addressing the research question?
                             </label>
                           </td>
                           <td>
                           <select
-                              id="takenInterview"
-                              value={takenInterview}
+                             id="q2"
+                              value={formData.q2}
                               onChange={(e) =>
-                                setTakenInterview(e.target.value)
+                                handleChange(e)
                               }
                               required
                             >
@@ -104,16 +101,16 @@ const FeedBackPage = () => {
 
                         <tr>
                           <td>
-                            <label htmlFor="knowledge">
+                            <label htmlFor="q3">
                             Is the research question or objective clearly stated?
                             </label>
                           </td>
                           <td>
                           <select
-                              id="takenInterview"
-                              value={takenInterview}
+                             id="q3"
+                              value={formData.q3}
                               onChange={(e) =>
-                                setTakenInterview(e.target.value)
+                                handleChange(e)
                               }
                               required
                             >
@@ -125,16 +122,16 @@ const FeedBackPage = () => {
                         </tr>
                         <tr>
                           <td>
-                            <label htmlFor="communication">
+                            <label htmlFor="q4">
                             Are potential biases or limitations of the methodology addressed?
                             </label>
                           </td>
                           <td>
                           <select
-                              id="takenInterview"
-                              value={takenInterview}
+                              id="q4"
+                              value={formData.q4}
                               onChange={(e) =>
-                                setTakenInterview(e.target.value)
+                                handleChange(e)
                               }
                               required
                             >
@@ -146,16 +143,16 @@ const FeedBackPage = () => {
                         </tr>
                         <tr>
                           <td>
-                            <label htmlFor="communication">
+                            <label htmlFor="q5">
                             Are the results presented clearly and logically?
                             </label>
                           </td>
                           <td>
                           <select
-                              id="takenInterview"
-                              value={takenInterview}
+                              id="q5"
+                              value={formData.q5}
                               onChange={(e) =>
-                                setTakenInterview(e.target.value)
+                                handleChange(e)
                               }
                               required
                             >
@@ -168,16 +165,16 @@ const FeedBackPage = () => {
 
                         <tr>
                           <td>
-                            <label htmlFor="communication">
+                            <label htmlFor="q6">
                             Are appropriate statistical analyses used, and are the results statistically significant?
                             </label>
                           </td>
                           <td>
                           <select
-                              id="takenInterview"
-                              value={takenInterview}
+                             id="q6"
+                              value={formData.q6}
                               onChange={(e) =>
-                                setTakenInterview(e.target.value)
+                                handleChange(e)
                               }
                               required
                             >
@@ -189,16 +186,16 @@ const FeedBackPage = () => {
                         </tr>
                         <tr>
                           <td>
-                            <label htmlFor="communication">
+                            <label htmlFor="q7">
                             Are potential biases or limitations of the methodology addressed?
                             </label>
                           </td>
                           <td>
                           <select
-                              id="takenInterview"
-                              value={takenInterview}
+                              id="q7"
+                              value={formData.q7}
                               onChange={(e) =>
-                                setTakenInterview(e.target.value)
+                                handleChange(e)
                               }
                               required
                             >
@@ -211,16 +208,16 @@ const FeedBackPage = () => {
 
                         <tr>
                           <td>
-                            <label htmlFor="communication">
+                            <label htmlFor="q8">
                             Do the conclusions provide insights or implications for future research or practice?
                             </label>
                           </td>
                           <td>
                           <select
-                              id="takenInterview"
-                              value={takenInterview}
+                              id="q8"
+                              value={formData.q8}
                               onChange={(e) =>
-                                setTakenInterview(e.target.value)
+                                handleChange(e)
                               }
                               required
                             >
@@ -232,16 +229,16 @@ const FeedBackPage = () => {
                         </tr>
                         <tr>
                           <td>
-                            <label htmlFor="communication">
+                            <label htmlFor="q9">
                             Is the paper well-written and organized?
                             </label>
                           </td>
                           <td>
                           <select
-                              id="takenInterview"
-                              value={takenInterview}
+                             id="q9"
+                              value={formData.q9}
                               onChange={(e) =>
-                                setTakenInterview(e.target.value)
+                                handleChange(e)
                               }
                               required
                             >
@@ -253,16 +250,16 @@ const FeedBackPage = () => {
                         </tr>
                         <tr>
                           <td>
-                            <label htmlFor="communication">
+                            <label htmlFor="q10">
                             Are the figures, tables, and other visuals clear and relevant?
                             </label>
                           </td>
                           <td>
                           <select
-                              id="takenInterview"
-                              value={takenInterview}
+                              id="q10"
+                              value={formData.q10}
                               onChange={(e) =>
-                                setTakenInterview(e.target.value)
+                                handleChange(e)
                               }
                               required
                             >
@@ -274,16 +271,16 @@ const FeedBackPage = () => {
                         </tr>
                         <tr>
                           <td>
-                            <label htmlFor="communication">
+                            <label htmlFor="q11">
                             Plagarism Checker Result:- is it Original Content ?
                             </label>
                           </td>
                           <td>
                           <select
-                              id="takenInterview"
-                              value={takenInterview}
+                             id="q11"
+                              value={formData.q11}
                               onChange={(e) =>
-                                setTakenInterview(e.target.value)
+                                handleChange(e)
                               }
                               required
                             >
@@ -306,8 +303,8 @@ const FeedBackPage = () => {
                           <td>
                             <textarea
                               id="feedback"
-                              value={feedback}
-                              onChange={(e) => setFeedback(e.target.value)}
+                              value={formData.feedback}
+                              onChange={(e) => handleChange(e)}
                               maxLength={100}
                               required
                             />

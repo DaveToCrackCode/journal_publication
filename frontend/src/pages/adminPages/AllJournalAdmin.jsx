@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import JournalCard from '../component/JournalCard';
+import JournalCard from '../../component/JournalCard';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 

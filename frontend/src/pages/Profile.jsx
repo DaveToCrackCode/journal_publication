@@ -42,7 +42,7 @@ const Profile = () => {
     <>
       <section>
         <div className="container_">
-          <div className="cta" style={{alignItems: 'center'}}>
+          <div className="cta" style={{alignItems: 'center', marginTop: "50px"}}>
             <div className="cta-text-box">
               <h2 className="heading-secondary">Profile</h2>
 

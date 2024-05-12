@@ -42,8 +42,9 @@
 .reviewer-wrapper{
   display: flex;
   justify-content: center;
-  width: 90%;
+  width: 100%;
   line-height: 1.5;
+  margin-bottom: 5%;
 }
 
 .reviewer-token{
@@ -51,7 +52,7 @@
   padding: 2%;
   margin-top: 4%;
   width: 90%;
-  margin-left: 2.5%;
+  /* margin-left: 2.5%; */
   font-size: 1.5rem;
 }
 

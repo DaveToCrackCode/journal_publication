@@ -6,6 +6,7 @@ import { User } from "../models/user.model.js";
 import { Journal } from "../models/journal.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { sendEmail } from "../utils/nodemailer.js";
+import { ReviewerRequest } from "../models/reviewerRequest.model.js";
 
 const getAllReviewer = asyncHandler(async (req, res) => {
     try {
@@ -23,6 +24,24 @@ const getAllReviewer = asyncHandler(async (req, res) => {
         throw new ApiError(500, "Some internal Server Error");
     }
 });
+
+const getAllAuthor = asyncHandler(async (req, res) => {
+    try {
+        const author = await User.find({ isReviewer: false , isAdmin: false });
+        if (!author) {
+            throw new ApiError(500, "Authors is not find");
+        }
+
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(200, author, "All Authors are fetched successfully")
+            );
+    } catch (error) {
+        throw new ApiError(500, "Some internal Server Error");
+    }
+});
+
 
 const getAllJournals = asyncHandler(async (req, res) => {
     try {
@@ -98,7 +117,7 @@ const setReviewers = asyncHandler(async(req,res)=>{
             // console.log("mail send");
         }
 
-        journalData.status = "allowted";
+        journalData.status = "UnderReview";
 
         const updateInfo = await journalData.save();
 
@@ -115,11 +134,115 @@ const setReviewers = asyncHandler(async(req,res)=>{
         console.log("Error while adding the reviewer server side",error);
         throw new ApiError(500, "Some internal Server Error while adding reviewer");
     }
-})
+});
+
+const getAllReviewerRequest = asyncHandler(async(req,res)=>{
+    try {
+        const data = await ReviewerRequest.find({}).populate({
+            path: 'reviewerId',
+            select: 'name email qualification degree_pdf specialistArea',
+        });
+
+        if(!data){
+            return res.status(200)
+            .json(
+                new ApiResponse(203,"Not any New request are present")
+            ); 
+        }
+
+        res.status(200)
+        .json(
+            new ApiResponse(200,data,"All Requests are  Fetched Successfully")
+        );
+
+    } catch (error) {
+        console.log("Error while fetching reviwer request from database",error);
+        throw new ApiError(500, "Error while fetching reviwer request from database");
+    }
+});
+
+const acceptRequest = asyncHandler(async(req,res)=>{
+     try {
+        const id = req.params.id;
+
+        const data = await ReviewerRequest.findById({_id:id});
+        
+        const deleteItem = await ReviewerRequest.findByIdAndDelete({_id:id});
+        if(!deleteItem){
+            return res.status(200)
+            .json(
+                new ApiResponse(203,"Some error occur while accepting the request")
+            );  
+        }
+        //console.log(data.reviewerId.toString());
+        const userId = data.reviewerId.toString();
+
+        let userData = await User.findById({_id:userId});
+
+        if(!userData){
+            return res.status(200)
+            .json(
+                new ApiResponse(203,"Some error occur while accepting the request")
+            );  
+        }
+
+        userData.isReviewer=true;
+        await userData.save();
+        res.status(200)
+        .json(
+            new ApiResponse(200,"Request Accept Succesfully")
+        );
+     } catch (error) {
+        console.log("Error while accepting the reviewer request",error);
+        throw new ApiError(500, "Error while accepting the reviewer request");
+     }
+});
+
+
+const rejectRequest = asyncHandler(async(req,res)=>{
+    try {
+       const id = req.params.id;
+
+       const data = await ReviewerRequest.findById({_id:id});
+       
+       const deleteItem = await ReviewerRequest.findByIdAndDelete({_id:id});
+       if(!deleteItem){
+           return res.status(200)
+           .json(
+               new ApiResponse(203,"Some error occur while rejecting  the request")
+           );  
+       }
+       //console.log(data.reviewerId.toString());
+    //    const userId = data.reviewerId.toString();
+
+    //    let userData = await User.findById({_id:userId});
+
+    //    if(!userData){
+    //        return res.status(200)
+    //        .json(
+    //            new ApiResponse(203,"Some error occur while rejecting the request")
+    //        );  
+    //    }
+
+    //    userData.isReviewer=false;
+    //    await userData.save();
+       res.status(200)
+       .json(
+           new ApiResponse(200,"Request Reject Succesfully")
+       );
+    } catch (error) {
+       console.log("Error while rejecting  the reviewer request",error);
+       throw new ApiError(500, "Error while  rejecting the reviewer request");
+    }
+});
 
 export { 
     getAllReviewer,
+    getAllAuthor,
     getAllJournals,
     getJournal,
-    setReviewers
+    setReviewers,
+    getAllReviewerRequest,
+    acceptRequest,
+    rejectRequest
 };

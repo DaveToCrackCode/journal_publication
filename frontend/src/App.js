@@ -11,7 +11,7 @@ import Home from "./pages/Home";
 
 import About from "./pages/About.jsx";
 import Profile from "./pages/Profile.jsx";
-import AllReviewer from "./pages/AllReviewer.jsx";
+import AllReviewer from "./pages/adminPages/AllReviewer.jsx";
 import AllJournal from "./pages/AllJournal.jsx";
 import AddReviewer from "./component/AddReviewer.jsx";
 import Layout from "./component/Layout.jsx";
@@ -21,6 +21,11 @@ import AllJournalForReviewing from "./pages/reviewerPages/AllJournalForReviewing
 import FeedBackOnJournal from "./pages/reviewerPages/FeedBackOnJournal.jsx";
 import FeedBackPage from "./pages/reviewerPages/FeedBackPage.jsx";
 import Instructions from "./pages/Instructions.jsx";
+import AllAuthors from "./pages/adminPages/AllAuthors.jsx";
+import PaperInReview from "./pages/adminPages/PaperInReview.jsx";
+import ReviewerRequest from "./pages/adminPages/ReviewerRequest.jsx";
+import TrackProgress from "./pages/adminPages/TrackProgress.jsx";
+import TrackDetails from "./pages/adminPages/TrackDetails.jsx";
 function App() {
   return (
     <>
@@ -121,6 +126,17 @@ function App() {
             }
           />
           <Route
+            path="/admin/track_details/:id"
+            element={
+              <Admin>
+                <Layout>
+                  {" "}
+                  <TrackDetails />
+                </Layout>
+              </Admin>
+            }
+          />
+          <Route
             path="/all-journal"
             element={
               <Admin>
@@ -137,6 +153,46 @@ function App() {
               <Admin>
                 <Layout>
                   <AllReviewer />
+                </Layout>
+              </Admin>
+            }
+          />
+          <Route
+            path="/all-authors"
+            element={
+              <Admin>
+                <Layout>
+                  <AllAuthors />
+                </Layout>
+              </Admin>
+            }
+          />
+          <Route
+            path="/reviewer-request"
+            element={
+              <Admin>
+                <Layout>
+                  <ReviewerRequest />
+                </Layout>
+              </Admin>
+            }
+          />
+          <Route
+            path="/paper-in-review"
+            element={
+              <Admin>
+                <Layout>
+                  <PaperInReview />
+                </Layout>
+              </Admin>
+            }
+          />
+          <Route
+            path="/track-progress"
+            element={
+              <Admin>
+                <Layout>
+                  <TrackProgress />
                 </Layout>
               </Admin>
             }

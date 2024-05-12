@@ -23,6 +23,26 @@ const userSchema = new Schema({
         required: true,
         minlength: 7, // Enforce minimum password length
       },
+      contact:{
+        type:String,
+        required:true
+      },
+      address:{
+        type:String,
+        required:true
+      },
+      city:{
+        type:String,
+        required:true
+      },
+      state:{
+        type:String,
+        required:true
+      },
+      country:{
+        type:String,
+        required:true
+      },
       qualification: {
         type: String,
         required: true,

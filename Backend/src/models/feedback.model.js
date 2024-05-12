@@ -6,9 +6,11 @@ const feedbackSchema = new Schema({
     ref: 'User',
     required:true
  },
- issue:{
+ remarks:{
     type:String,
-    required:true
+ },
+ feedbackAnswer:{
+   type: Schema.Types.Mixed
  },
  reviewer:{
     type: mongoose.Schema.Types.ObjectId,
