@@ -1,9 +1,7 @@
-// ReviewerCard.js
 import React, { useState, useEffect } from "react";
 import "../../style/allreviewers.css"
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Link } from 'react-router-dom';
 import toast from "react-hot-toast";
 import '../../style/reviewerrequest.css';
 
@@ -44,18 +42,13 @@ const TrackDetails = () => {
         <>
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", paddingTop: "5%" }}>
                 <h1><b>Reviewers list is being displayed according to paper track</b></h1>
-
-
-
                 {/* <h2 style={{ textAlign: "center" }}><b>{journal.author}</b></h2> */}
-
                 <table id="reviewers-table">
                     <thead>
                         <tr>
                             <th>Reviewer Name</th>
                             <th>Email</th>
                             <th>Status</th>
-                            <th>Feedback?</th>
                             <th>Remind</th>
                         </tr>
                     </thead>
@@ -67,15 +60,11 @@ const TrackDetails = () => {
                                     <td>{reviewer?.reviewerData?.name}</td>
                                     <td>{reviewer?.reviewerData?.email}</td>
                                     <td>{reviewer?.status === 'accept' ? 'Accepted' : reviewer?.status === 'none'? 'Waiting': reviewer?.status}</td>
-                                    <td>{reviewer?.status === 'feedbackGiven' ? 'Given' : 'Not Given'}</td>
                                     <td><button className="remind-button">Remind</button></td>
                                 </tr>
                             ))}
 
-                            <tr>
-                                <td style={{textAlign: "center"}} colSpan={2}><button className="accept-btn">Accept Paper</button> </td>
-                                <td style={{textAlign: "center"}}colSpan={3}><button className="reject-btn">Reject Paper</button> </td>
-                            </tr>
+                            
                     </tbody>
                 </table>
             </div>

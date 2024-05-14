@@ -31,3 +31,14 @@
     width: 150px;
   }
 }
+
+@media (max-width: 396px) {
+  .description-info{
+    width: 90%;
+    margin-left: 10%;
+  }
+  .index-images{
+    /* height: 80px; */
+    width: 80%;
+  }
+}

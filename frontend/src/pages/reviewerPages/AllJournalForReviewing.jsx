@@ -17,7 +17,7 @@ const AllJournalForReviewing = () => {
 
       if (response.status === 200) {
         // Assuming the response.data contains the array of journals
-        // console.log(response.data.data);
+        console.log(response.data.data);
         setJournals(response.data.data);
         toast.success('Data Fetched Successfully');
       } else {
@@ -36,7 +36,7 @@ const AllJournalForReviewing = () => {
   return (
     <div className='journal-list'>
       {journals.length > 0 ? (
-        journals.map((journal) => (
+        journals?.map((journal) => (
           <JournalCard key={journal._id} journal={journal} />
         ))
       ) : (

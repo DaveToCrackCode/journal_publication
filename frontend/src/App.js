@@ -12,7 +12,7 @@ import Home from "./pages/Home";
 import About from "./pages/About.jsx";
 import Profile from "./pages/Profile.jsx";
 import AllReviewer from "./pages/adminPages/AllReviewer.jsx";
-import AllJournal from "./pages/AllJournal.jsx";
+import AllJournal from "./pages/adminPages/AllJournal.jsx";
 import AddReviewer from "./component/AddReviewer.jsx";
 import Layout from "./component/Layout.jsx";
 import AllSubmittedJournalAuthor from "./pages/AllSubmittedJournalAuthor.jsx";
@@ -26,6 +26,12 @@ import PaperInReview from "./pages/adminPages/PaperInReview.jsx";
 import ReviewerRequest from "./pages/adminPages/ReviewerRequest.jsx";
 import TrackProgress from "./pages/adminPages/TrackProgress.jsx";
 import TrackDetails from "./pages/adminPages/TrackDetails.jsx";
+import AcceptedPapers from "./pages/adminPages/AcceptedPapers.jsx";
+import UserDetails from "./pages/adminPages/UserDetails.jsx";
+import ArchiveAdd from "./pages/adminPages/ArchiveAdd.jsx";
+import ArchivePaper from "./pages/ArchivePaper.jsx";
+import Issue from "./pages/Issue.jsx";
+import Archive from "./pages/Archive.jsx";
 function App() {
   return (
     <>
@@ -61,6 +67,30 @@ function App() {
                   <Login />
                 </Layout>
               </Public>
+            }
+          />
+          <Route
+            path="/archive"
+            element={
+              <Layout>
+                <Archive />
+              </Layout>
+            }
+          />
+           <Route
+            path="/archive/:vol"
+            element={
+              <Layout>
+                <Issue />
+              </Layout>
+            }
+          />
+          <Route
+            path="/archive/:vol/:issu"
+            element={
+              <Layout>
+                <ArchivePaper />
+              </Layout>
             }
           />
           <Route
@@ -183,6 +213,36 @@ function App() {
               <Admin>
                 <Layout>
                   <PaperInReview />
+                </Layout>
+              </Admin>
+            }
+          />
+          <Route
+            path="/accepted-papers"
+            element={
+              <Admin>
+                <Layout>
+                  <AcceptedPapers />
+                </Layout>
+              </Admin>
+            }
+          />
+          <Route
+            path="/user-details/:id"
+            element={
+              <Admin>
+                <Layout>
+                  <UserDetails />
+                </Layout>
+              </Admin>
+            }
+          />
+          <Route
+            path="/manage-archive"
+            element={
+              <Admin>
+                <Layout>
+                  <ArchiveAdd />
                 </Layout>
               </Admin>
             }

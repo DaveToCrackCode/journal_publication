@@ -4,10 +4,12 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import { Journal } from "../models/journal.model.js";
+import {uploadOnCloudinary} from "../utils/cloudinary.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { sendEmail } from "../utils/nodemailer.js";
 import { ReviewerRequest } from "../models/reviewerRequest.model.js";
-
+import { ArchiveVolumeHelper } from "../models/archiveVolumeHelper.model.js";
+import { ArchiveVolume } from "../models/archiveVolume.model.js";
 const getAllReviewer = asyncHandler(async (req, res) => {
     try {
         const reviewer = await User.find({ isReviewer: true });
@@ -98,24 +100,83 @@ const setReviewers = asyncHandler(async(req,res)=>{
     try {
         const {id} = req.params;
         let reviewers = req.body
-        //console.log(reviewers);
+        // console.log(reviewers);
 
         const journalData = await Journal.findOne({_id:id});
+
 
         if(!journalData){
             console.log("journal data is not present");
             throw new ApiError(400,"Journal data is not find in database")
         }
+
+        console.log(reviewers[0]._id);
+
+        // const existingReviewerIds = new Set(journalData.reviewers.map(reviewer => reviewer._id));
+
+        // // Filter out reviewers that are not included in the new array
+        // const updatedReviewers = existingReviewers.filter(reviewer => existingReviewerIds.has(reviewer._id));
+    
+        // // Add new reviewers to the existing array
+        // newReviewers.forEach(newReviewer => {
+        //     if (!existingReviewerIds.has(newReviewer._id)) {
+        //         updatedReviewers.push(newReviewer);
+        //     }
+        // });
+
+         for(let i=0;i<journalData.reviewers.length;i++){
+            let flag= false;
+
+            for(let j=0;j<reviewers.length;j++){
+                if(journalData.reviewers[i]._id==reviewers[j].id){
+                    flag= true;
+                }
+            }
+            if(flag== false){
+                journalData.reviewers.splice(i,1);
+                i--;
+            }
+            
+         }
+
+         for(let j=0;j<reviewers.length;j++){
+             let flag= false;
+             
+             for(let i=0;i<journalData.reviewers.length;i++){
+                if(journalData.reviewers[i]._id==reviewers[j].id){
+                    flag= true;
+                }
+            }
+            if(flag== false){
+                journalData.reviewers.push(reviewers[j]._id);
+                
+            }
+            
+         }
+
+        // const existingReviewers = new Set(journalData.reviewers.map(reviewer => reviewer._id));
+        // const newReviewers = new Set(reviewers.map(reviewer => reviewer._id));
         
-        for(let i=0;i<reviewers.length;i++){
-            journalData.reviewers.push(reviewers[i]._id);
-            // const mailRes= await sendEmail(reviewers[i].email);
-            // if(!mailRes){
-            //   console.log("some error while sending mail to Reviewer");
-            //   throw new ApiError(405,"error while sending mail");
-            // }
-            // console.log("mail send");
-        }
+        // // Remove reviewers not in the new list
+        // journalData.reviewers = journalData.reviewers.filter(reviewer => newReviewers.has(reviewer._id));
+        
+        // // Add new reviewers not already in the existing list
+        // reviewers.forEach(reviewer => {
+        //     if (!existingReviewers.has(reviewer._id)) {
+        //         journalData.reviewers.push({ _id: reviewer._id });
+        //     }
+        // });
+       
+
+        // for(let i=0;i<reviewers.length;i++){
+        //     journalData.reviewers.push(reviewers[i]._id);
+        //     // const mailRes= await sendEmail(reviewers[i].email);
+        //     // if(!mailRes){
+        //     //   console.log("some error while sending mail to Reviewer");
+        //     //   throw new ApiError(405,"error while sending mail");
+        //     // }
+        //     // console.log("mail send");
+        // }
 
         journalData.status = "UnderReview";
 
@@ -198,6 +259,43 @@ const acceptRequest = asyncHandler(async(req,res)=>{
      }
 });
 
+const acceptPaper = asyncHandler(async(req,res)=>{
+    try {
+        console.log("acceptPaper == ");
+       const id = req.params.id;
+
+       const journaldata = await Journal.findById({_id:id});
+       journaldata.status = 'accepted';
+       await journaldata.save();
+       res.status(200)
+       .json(
+           new ApiResponse(200,"Journal Accepted Succesfully")
+       );
+    } catch (error) {
+       console.log("Error while accepting the Journal",error);
+       throw new ApiError(500, "Error while accepting the Journal");
+    }
+});
+
+const getUsertDetails = asyncHandler(async(req,res)=>{
+    try {
+      
+       const id = req.params.id;
+
+       const userData = await User.findById({_id:id});
+       
+       if(!userData){
+        throw new ApiError(400,"Some error when fetching User from database");
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200,{data:userData},"User data fetched successfully")
+    );
+    } catch (error) {
+        throw new ApiError(500,"Some internal Server Error");
+    }
+});
+
 
 const rejectRequest = asyncHandler(async(req,res)=>{
     try {
@@ -236,6 +334,145 @@ const rejectRequest = asyncHandler(async(req,res)=>{
     }
 });
 
+const getAllVolume = asyncHandler(async(req,res)=>{
+    try {
+        const newData = await ArchiveVolumeHelper.find();
+
+          return res.status(200)
+           .json(
+               new ApiResponse(200,newData,"Volume Data Fetched SuccesFully")
+           );
+    } catch (error) {
+        console.log("Error while Fetching ALl Volume",error);
+        throw new ApiError(500, "Error while Fetching ALl Volume"); 
+    }
+});
+
+const addVolume = asyncHandler(async(req,res)=>{
+    try {
+        console.log("inside Add volume");
+          const volumeData = await ArchiveVolumeHelper.find();
+          let len = volumeData.length;
+          const newVolume = await ArchiveVolumeHelper.create({
+            volume:len+1,
+            issue:[]
+          });
+
+          if(!newVolume){
+            return res.status(203)
+           .json(
+               new ApiResponse(203,"Some error occur while Adding new Volume")
+           ); 
+          }
+
+          const newData = await ArchiveVolumeHelper.find();
+
+          return res.status(200)
+           .json(
+               new ApiResponse(200,newData,"Volume Added Succesfully")
+           ); 
+
+    } catch (error) {
+        console.log("Error while Ading new Volume",error);
+       throw new ApiError(500, "Error while Ading new Volumet");
+    }
+});
+
+const addIssue = asyncHandler(async(req,res)=>{
+    try {
+        console.log("inside Add volume");
+         const vol = parseInt(req.params.volume);
+         console.log(typeof(vol));
+
+         const volumeData = await ArchiveVolumeHelper.findOne({volume:vol});
+         //console.log(volumeData);
+         if(!volumeData){
+            return res.status(203)
+            .json(
+                new ApiResponse(203,"Some error occur while Adding new Issue")
+            ); 
+         }
+         const issueLen = volumeData.issue.length;
+         volumeData.issue.push(issueLen+1);
+         const finalData = await volumeData.save();
+
+         if(!finalData){
+            return res.status(203)
+            .json(
+                new ApiResponse(203,"Some error occur while Adding new Issue")
+            ); 
+         }
+
+         return res.status(200)
+         .json(
+             new ApiResponse(200," New Issue Added SuccesFully")
+         ); 
+         
+    } catch (error) {
+        console.log("Error while Ading new Volume",error);
+       throw new ApiError(500, "Error while Ading new Volumet");
+    }
+});
+
+const addArchive = asyncHandler(async(req,res)=>{
+    try {
+        // console.log(req.file.path);
+           const {vol,issu,title,author,pageNumber,date,abstract} = req.body;
+           //console.log(req.body);
+           //console.log(typeof(req.body.volume));
+           const user = req.user;
+           const volume = parseInt(vol);
+           const issue= parseInt(issu);       
+           console.log(vol);    
+           if(
+            [title,pageNumber,date,abstract].some((field)=> field?.trim() === "")
+           )
+           {
+                throw  new ApiError(400,"All fields are required");
+           }
+           if (isNaN(vol) || isNaN(issu)) {
+            throw new ApiError(400, "Invalid volume or issue number");
+        }
+         const localJournalPath = req.file?.path;
+         console.log("localJournalPath",localJournalPath);
+           if(!localJournalPath){
+              throw new ApiError(400,"Journal  is required");
+           }
+           const journalUrl = await uploadOnCloudinary(localJournalPath,'Archive_pdf');
+          console.log("journal clould url",journalUrl);
+           if(!journalUrl){
+              throw new ApiError(400,"Some error when upload the journal on server");
+           }
+            const data = await ArchiveVolume.create({
+                 volume,
+                 issue,
+                 title,
+                 author,
+                 pageNumber,
+                 date,
+                 abstract,
+                 paperDegree:journalUrl.url
+
+            })
+         
+           if(!data){
+              throw new ApiError(402,"error occured when saving the document into the database");
+           }
+        //   console.log(data);
+           return res.status(200).json(
+            new ApiResponse(
+                200,{},
+                "Journal Submit SuccessFully"
+            )
+           );
+
+         
+       } catch (error) {
+        console.log(error);
+           throw new ApiError(505,"server error when submitting the Archive");
+       }
+});
+
 export { 
     getAllReviewer,
     getAllAuthor,
@@ -244,5 +481,11 @@ export {
     setReviewers,
     getAllReviewerRequest,
     acceptRequest,
-    rejectRequest
+    acceptPaper,
+    getUsertDetails,
+    rejectRequest,
+    getAllVolume,
+    addVolume,
+    addIssue, 
+    addArchive
 };

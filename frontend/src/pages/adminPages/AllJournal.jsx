@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import JournalCard from '../component/JournalCard';
+import JournalCard from '../../component/JournalCard';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
@@ -34,7 +34,7 @@ const AllJournal = () => {
   }, []);
 
   return (
-    <>
+    <div className='journal-list'>
       {journals.length > 0 ? (
         journals.map((journal) => (
           <JournalCard key={journal._id} journal={journal} />
@@ -42,7 +42,7 @@ const AllJournal = () => {
       ) : (
         <p>No journals available.</p>
       )}
-    </>
+    </div>
   );
 };
 

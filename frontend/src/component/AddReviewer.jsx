@@ -27,9 +27,10 @@ const ReviewerCard = ({ title, author, status, date }) => {
 
       if (response.status === 200) {
         // Assuming the response.data contains the array of journals
-       console.log("One journal",response.data.data);
+      //  console.log("One journal",response.data.data);
         setJournal(response.data.data);
         toast.success('Data Fetched Successfully');
+        fetchReviewers(response.data.data);
       } else {
         toast.error('Failed to fetch data');
       }
@@ -79,7 +80,7 @@ const ReviewerCard = ({ title, author, status, date }) => {
   //ADD REVIER FROM THE LIST
   const handleAddReviewer = () => {
     //console.log(newReviewer);
-    if (newReviewer.name.trim() !== '') {
+    if (newReviewer._id && !reviewers.some(reviewer => reviewer._id === newReviewer._id)) {
       setReviewers([...reviewers, newReviewer]);
       setNewReviewer({});
       setSearchInput('');
@@ -101,6 +102,7 @@ const ReviewerCard = ({ title, author, status, date }) => {
     setNewReviewer(reviewer);
   };
 
+  
   const getAllReviewer = async () => {
     try {
       const headers = {
@@ -115,12 +117,39 @@ const ReviewerCard = ({ title, author, status, date }) => {
       console.log(error);
     }
   };
-
+  
   useEffect(() => {
     getAllReviewer();
     getJournal ();
   }, []);
-
+  
+  const fetchReviewers = async (journal) => {
+    try {
+      const headers = {
+        Authorization: localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      };
+  
+      const reviewerIds = journal.reviewers.map((reviewer) => reviewer._id);
+  
+      const uniqueReviewerIds = [...new Set(reviewerIds)]; // Remove duplicate reviewer IDs
+  
+      const reviewerDetails = await Promise.all(
+        uniqueReviewerIds.map(async (reviewerId) => {
+          const response = await axios.get(`http://127.0.0.1:5000/api/v1/admin/user_details/${reviewerId}`, { headers });
+          // console.log(response.data.data.data);
+          return response.data.data.data; // Assuming the data contains reviewer details
+        })
+      );
+      // console.log(reviewerDetails)
+  
+      setReviewers(reviewerDetails);
+      // setSearchReviewer(reviewerDetails);
+    } catch (error) {
+      console.error('Error fetching reviewer details:', error);
+      toast.error('Some internal server error');
+    }
+  };
   return (
     
     <div className='reviewer-wrapper'>

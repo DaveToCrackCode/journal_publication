@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import "../../style/allreviewers.css";
 
@@ -34,7 +35,7 @@ const AllAuthors =() =>{
           <th>Name</th>
           <th>Email</th>
           <th>Phone No.</th>
-          <th>Track</th>
+          <th>Know More</th>
         </tr>
      
         <tbody>
@@ -43,9 +44,12 @@ const AllAuthors =() =>{
               <tr key={author._id}>
                 <td>{author.name}</td>
                 <td>{author.email}</td>
-                <td>+91 {author.contact}</td>
-                <td>{author.specialistArea}</td>
-                {/* <td onClick={() => window.open(author.degree_pdf, '_blank')}>Click</td> */}
+                <td>{author.contact}</td>
+                <td><Link to={`/user-details/${author._id}`} className="detail-button" style={{marginTop: "0px"}}>
+                     Click here
+                </Link></td>
+                
+                
               </tr>
             )
           )

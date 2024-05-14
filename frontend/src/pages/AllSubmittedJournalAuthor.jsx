@@ -34,7 +34,7 @@ const AllSubmittedJournalAuthor = () => {
   }, []);
 
   return (
-    <div style={{display:'flex', flexDirection:'row'}}>
+    <div className='journal-list'>
       {journals.length > 0 ? (
         journals.map((journal) => (
           <JournalCard key={journal._id} journal={journal} />

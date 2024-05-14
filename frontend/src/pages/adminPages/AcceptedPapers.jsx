@@ -3,7 +3,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import "../../style/allreviewers.css"
 
-const PaperInReview =() =>{
+const AcceptedPapers =() =>{
     const [journals, setJournals] = useState([]);
 
     const getAllJournals = async () => {
@@ -39,7 +39,7 @@ const PaperInReview =() =>{
 
    
     <table id='reviewers-table'>
-      <tr><td colSpan={5} style={{textAlign: "center"}}> <h2><b>Papers which are Under Review!</b></h2></td></tr>
+      <tr><td colSpan={5} style={{textAlign: "center"}}> <h2><b>Papers which Accepted by Admin!</b></h2></td></tr>
         <tr>
           <th>Paper ID</th>
           <th>Title</th>
@@ -49,9 +49,8 @@ const PaperInReview =() =>{
         </tr>
      
         <tbody>
-        {journals.some(journal => ['UnderReview', 'minor', 'major'].includes(journal.status)) ? (
-        journals.filter(journal => ['UnderReview', 'minor', 'major'].includes(journal.status))
-        .map((journal) => (
+        {journals.some(journal => journal.status === 'accepted') ? (
+        journals.filter(journal => journal.status === 'accepted').map((journal) => (
             <tr>
                 <td>{journal.paper_id}</td>
                 <td>{journal.title}</td>
@@ -65,7 +64,6 @@ const PaperInReview =() =>{
         <tr>
           <td colSpan={5} style={{textAlign: "center"}}> <p>No journals available.</p></td>
         </tr>
-       
       )}
       </tbody>
     </table>
@@ -73,4 +71,4 @@ const PaperInReview =() =>{
   );
 };
 
-export default PaperInReview;
+export default AcceptedPapers;

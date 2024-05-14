@@ -14,8 +14,8 @@ const getAllJournalsForReview = asyncHandler(async(req,res)=>{
         //console.log("here");
         const journals = await Journal.find({'reviewers._id':new mongoose.Types.ObjectId(reviewer)});
         if(journals.length === 0){
-           return res.status(200).josn(
-            new ApiResponse(200,"Not Any paper present for reviewing")
+           return res.status(200).json(
+            new ApiResponse(200,[],"Not Any paper present for reviewing")
            );
         }
 
@@ -166,7 +166,7 @@ const SetFeedBack = asyncHandler(async(req,res)=>{
        {
         throw new ApiError(500, "Error while saving data into database ");
        }
-       journalData.status = "submitted";
+       journalData.status = "minor";
        await journalData.save();
 
        res.status(200).json(

@@ -10,4 +10,6 @@ router.route('/getReviewJournal/:id').get(ReviewerverifyJWT,getReviewJournal);
 router.route('/accept').post(ReviewerverifyJWT,AcceptHandler);
 router.route('/reject').post(ReviewerverifyJWT,RejectHandler);
 router.route('/feedback').post(ReviewerverifyJWT,SetFeedBack);
+router.route('/details/:id').get(ReviewerverifyJWT,getReviewJournal);
+
 export default router;

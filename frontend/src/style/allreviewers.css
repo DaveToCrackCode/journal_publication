@@ -39,6 +39,23 @@
   .more-button:hover{
     color: black;
   }
+  .confirmation-dialog{
+    z-index: 11;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+    padding: 20%;
+    /* background-color: black; */
+    backdrop-filter: blur(20px);
+    color: rgb(0, 0, 0);
+  }
+
+
+  
   
   
   #reviewers-table tr:nth-child(even){background-color: #f2f2f2;}
@@ -57,7 +74,28 @@
     }
     #reviewers-table td, #reviewers-table th {
       padding: 2px;
-    font-size: small;
+      font-size: small;
+    }
+
+    .remind-button{
+      padding: 2px;
+    }
+    .confirmation-dialog{
+      padding-top: 50%;
+      /* padding: 10%; */
+      font-size: large;
+    }
+
+  }
+
+  @media (max-width: 450px) {
+    
+    #reviewers-table{
+        width: 100%;
+    }
+    #reviewers-table td, #reviewers-table th {
+    padding: 2px;
+    font-size: 10px;
     }
 
   }

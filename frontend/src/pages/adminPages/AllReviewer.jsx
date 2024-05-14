@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios';
-import "../../style/allreviewers.css"
+import "../../style/allreviewers.css";
+import { Link } from 'react-router-dom';
 
 
 const AllReviewer = () => {
@@ -35,7 +36,7 @@ const AllReviewer = () => {
           <th>Name</th>
           <th>Email</th>
           <th>Phone No.</th>
-          <th>Degree</th>
+          <th>More Details</th>
         </tr>
      
         <tbody>
@@ -45,8 +46,10 @@ const AllReviewer = () => {
               <tr key={reviewer._id}>
                 <td>{reviewer.name}</td>
                 <td>{reviewer.email}</td>
-                <td>+91 {reviewer.contact}</td>
-                <td onClick={() => window.open(reviewer.degree_pdf, '_blank')}>Click</td>
+                <td> {reviewer.contact}</td>
+                <td><Link to={`/user-details/${reviewer._id}`} className="detail-button" style={{marginTop: "0px"}}>
+                     Click here
+                </Link></td>
               </tr>
             )
           ))
@@ -66,7 +69,7 @@ const AllReviewer = () => {
           <th>Name</th>
           <th>Email</th>
           <th>Phone No.</th>
-          <th>Know More</th>
+          <th>More Details</th>
         </tr>
      
         <tbody>
@@ -76,8 +79,10 @@ const AllReviewer = () => {
               <tr key={reviewer._id}>
                 <td>{reviewer.name}</td>
                 <td>{reviewer.email}</td>
-                <td>+91 {reviewer.contact}</td>
-                <td onClick={() => window.open(reviewer.degree_pdf, '_blank')}>Click</td>
+                <td> {reviewer.contact}</td>
+                <td><Link to={`/user-details/${reviewer._id}`} className="detail-button" style={{marginTop: "0px"}}>
+                     Click here
+                </Link></td>
               </tr>
             )
           ))
@@ -96,7 +101,7 @@ const AllReviewer = () => {
           <th>Name</th>
           <th>Email</th>
           <th>Phone No.</th>
-          <th>Know More</th>
+          <th>More Details</th>
         </tr>
      
         <tbody>
@@ -106,8 +111,10 @@ const AllReviewer = () => {
               <tr key={reviewer._id}>
                 <td>{reviewer.name}</td>
                 <td>{reviewer.email}</td>
-                <td>+91 {reviewer.contact}</td>
-                <td onClick={() => window.open(reviewer.degree_pdf, '_blank')}>Click</td>
+                <td> {reviewer.contact}</td>
+                <td><Link to={`/user-details/${reviewer._id}`} className="detail-button" style={{marginTop: "0px"}}>
+                     Click here
+                </Link></td>
               </tr>
             )
           ))
@@ -126,7 +133,7 @@ const AllReviewer = () => {
           <th>Name</th>
           <th>Email</th>
           <th>Phone No.</th>
-          <th>Know More</th>
+          <th>More Details</th>
         </tr>
      
         <tbody>
@@ -136,8 +143,10 @@ const AllReviewer = () => {
               <tr key={reviewer._id}>
                 <td>{reviewer.name}</td>
                 <td>{reviewer.email}</td>
-                <td>+91 {reviewer.contact}</td>
-                <td onClick={() => window.open(reviewer.degree_pdf, '_blank')}>Click</td>
+                <td> {reviewer.contact}</td>
+                <td><Link to={`/user-details/${reviewer._id}`} className="detail-button" style={{marginTop: "0px"}}>
+                     Click here
+                </Link></td>
               </tr>
             )
           ))
@@ -157,7 +166,7 @@ const AllReviewer = () => {
           <th>Name</th>
           <th>Email</th>
           <th>Phone No.</th>
-          <th>Know More</th>
+          <th>More Details</th>
         </tr>
      
         <tbody>
@@ -167,8 +176,10 @@ const AllReviewer = () => {
               <tr key={reviewer._id}>
                 <td>{reviewer.name}</td>
                 <td>{reviewer.email}</td>
-                <td>+91 {reviewer.contact}</td>
-                <td onClick={() => window.open(reviewer.degree_pdf, '_blank')}>Click</td>
+                <td> {reviewer.contact}</td>
+                <td><Link to={`/user-details/${reviewer._id}`} className="detail-button" style={{marginTop: "0px"}}>
+                     Click here
+                </Link></td>
               </tr>
             )
           ))
@@ -188,7 +199,7 @@ const AllReviewer = () => {
           <th>Name</th>
           <th>Email</th>
           <th>Phone No.</th>
-          <th>Know More</th>
+          <th>More Details</th>
         </tr>
      
         <tbody>
@@ -198,8 +209,10 @@ const AllReviewer = () => {
               <tr key={reviewer._id}>
                 <td>{reviewer.name}</td>
                 <td>{reviewer.email}</td>
-                <td>+91 {reviewer.contact}</td>
-                <td onClick={() => window.open(reviewer.degree_pdf, '_blank')}>Click</td>
+                <td> {reviewer.contact}</td>
+                <td><Link to={`/user-details/${reviewer._id}`} className="detail-button" style={{marginTop: "0px"}}>
+                     Click here
+                </Link></td>
               </tr>
             )
           ))
@@ -219,7 +232,7 @@ const AllReviewer = () => {
           <th>Name</th>
           <th>Email</th>
           <th>Phone No.</th>
-          <th>Know More</th>
+          <th>More Details</th>
         </tr>
      
         <tbody>
@@ -229,8 +242,10 @@ const AllReviewer = () => {
               <tr key={reviewer._id}>
                 <td>{reviewer.name}</td>
                 <td>{reviewer.email}</td>
-                <td>+91 {reviewer.contact}</td>
-                <td onClick={() => window.open(reviewer.degree_pdf, '_blank')}>Click</td>
+                <td> {reviewer.contact}</td>
+                <td><Link to={`/user-details/${reviewer._id}`} className="detail-button" style={{marginTop: "0px"}}>
+                     Click here
+                </Link></td>
               </tr>
             )
           ))
@@ -250,7 +265,7 @@ const AllReviewer = () => {
           <th>Name</th>
           <th>Email</th>
           <th>Phone No.</th>
-          <th>Know More</th>
+          <th>More Details</th>
         </tr>
      
         <tbody>
@@ -260,8 +275,10 @@ const AllReviewer = () => {
               <tr key={reviewer._id}>
                 <td>{reviewer.name}</td>
                 <td>{reviewer.email}</td>
-                <td>+91 {reviewer.contact}</td>
-                <td onClick={() => window.open(reviewer.degree_pdf, '_blank')}>Click</td>
+                <td> {reviewer.contact}</td>
+                <td><Link to={`/user-details/${reviewer._id}`} className="detail-button" style={{marginTop: "0px"}}>
+                     Click here
+                </Link></td>
               </tr>
             )
           ))
@@ -281,7 +298,7 @@ const AllReviewer = () => {
           <th>Name</th>
           <th>Email</th>
           <th>Phone No.</th>
-          <th>Know More</th>
+          <th>More Details</th>
         </tr>
      
         <tbody>
@@ -291,8 +308,10 @@ const AllReviewer = () => {
               <tr key={reviewer._id}>
                 <td>{reviewer.name}</td>
                 <td>{reviewer.email}</td>
-                <td>+91 {reviewer.contact}</td>
-                <td onClick={() => window.open(reviewer.degree_pdf, '_blank')}>Click</td>
+                <td> {reviewer.contact}</td>
+                <td><Link to={`/user-details/${reviewer._id}`} className="detail-button" style={{marginTop: "0px"}}>
+                     Click here
+                </Link></td>
               </tr>
             )
           ))

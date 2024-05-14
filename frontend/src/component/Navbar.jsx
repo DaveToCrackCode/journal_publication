@@ -51,6 +51,7 @@ const Navbar = () => {
       </Link>
       <nav className={`main-nav ${isMenuOpen ? "menu-open" : ""}`}>
         <ul className="main-nav-list">
+        <li><Link className="main-nav-link" to="/archive" onClick={handleNavItemClick}>Archive</Link></li>
           {isLoggedIn && !isAdmin && !isReviewer && (
             <>
               <li>

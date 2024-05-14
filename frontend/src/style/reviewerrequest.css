@@ -19,4 +19,11 @@
   .accept-btn:hover,.reject-btn:hover{
     color: black;
   }
+
+  @media (max-width: 59em) {
+   .accept-btn,.reject-btn{
+    padding: 2px 5px;
+   }
+
+  }
   
