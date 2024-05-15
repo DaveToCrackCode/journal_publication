@@ -2,8 +2,9 @@ import React,{useState,useEffect} from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import VolumeCard from '../component/VolumeCard';
+import '../style/volumecard.css';
 
-const Archive = () => {
+const ArchiveVolume = () => {
      const [volumeData,setVolumeData] = useState([]);
     const fetchVolume = async()=>{
         try {
@@ -28,7 +29,7 @@ const Archive = () => {
         fetchVolume();
     },[])
   return (
-    <div style={{display:"flex", flexWrap:"wrap"}}>
+    <div className='archive-wrapper'>
       {volumeData.map((vol) => (
           <VolumeCard key={vol._id} volume={vol.volume} />
         ))}  
@@ -36,4 +37,4 @@ const Archive = () => {
   );
 }
 
-export default Archive;
+export default ArchiveVolume;

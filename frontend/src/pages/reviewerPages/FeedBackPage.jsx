@@ -290,10 +290,27 @@ const FeedBackPage = () => {
                             </select>
                           </td>
                         </tr>
-
-
-                       
-
+                        <tr>
+                          <td>
+                            <label htmlFor="feedback">
+                              Changes Need:
+                            </label>
+                          </td>
+                          <td>
+                          <select
+                             id="q12"
+                              value={formData.q12}
+                              onChange={(e) =>
+                                handleChange(e)
+                              }
+                              required
+                            >
+                              <option value="">Select</option>
+                              <option value="minor">Minor Changes</option>
+                              <option value="major">Major Changes</option>
+                            </select>
+                          </td>
+                        </tr>
                         <tr>
                           <td>
                             <label htmlFor="feedback">

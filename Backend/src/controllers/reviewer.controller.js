@@ -126,7 +126,11 @@ const RejectHandler = asyncHandler(async(req,res)=>{
 
 const SetFeedBack = asyncHandler(async(req,res)=>{
     try {
-        const { q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, feedback, journalId } = req.body;
+        const { q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, feedback, journalId } = req.body;
+        let user = req.user._id;
+        console.log(req.body)
+        console.log(user)
+        
 
         let journalData = await Journal.findById({_id:journalId});
         //console.log(journalData);
@@ -156,7 +160,8 @@ const SetFeedBack = asyncHandler(async(req,res)=>{
                 q8,
                 q9,
                 q10,
-                q11
+                q11,
+                q12
             },
             reviewer: req.user._id, // Assuming reviewer field is not provided in the request body
             journal: journalData._id // Assuming journalId is provided in the request body
@@ -166,7 +171,18 @@ const SetFeedBack = asyncHandler(async(req,res)=>{
        {
         throw new ApiError(500, "Error while saving data into database ");
        }
-       journalData.status = "minor";
+       if(journalData.status !== 'minor' ||  journalData.status !=='major')
+       journalData.status = q12;
+       const filteredReviewer = journalData.reviewers.filter(function(reviewer) {
+        // console.log(reviewer._id)
+        return reviewer._id.toString() === user.toString();
+      });
+      console.log(filteredReviewer)
+      if (filteredReviewer.length > 0) {
+        filteredReviewer[0].journalStatus = q12;
+        filteredReviewer[0].status = 'feedbackGiven';
+     }
+       
        await journalData.save();
 
        res.status(200).json(

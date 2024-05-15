@@ -5,6 +5,7 @@ import {ApiError} from  "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ArchiveVolume } from "../models/archiveVolume.model.js";
 import { ArchiveVolumeHelper } from "../models/archiveVolumeHelper.model.js";
+import { Journal } from "../models/journal.model.js";
 
 const getArchiveData = asyncHandler(async(req,res)=>{
     try {
@@ -75,9 +76,29 @@ const getArchivePaperData = asyncHandler(async(req,res)=>{
     }
 });
 
+const getArchieveJournaltDetails = asyncHandler(async(req,res)=>{
+    try {
+      
+       const id = req.params.id;
+
+       const archieveJournal = await ArchiveVolume.findById({_id:id});
+       
+       if(!archieveJournal){
+        throw new ApiError(400,"Some error when fetching Journal from database");
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200,{data:archieveJournal},"Journal data fetched successfully")
+    );
+    } catch (error) {
+        throw new ApiError(500,"Some internal Server Error");
+    }
+});
+
 
 export {
     getArchiveData,
     getIssueData ,
-    getArchivePaperData 
+    getArchivePaperData ,
+    getArchieveJournaltDetails
 }

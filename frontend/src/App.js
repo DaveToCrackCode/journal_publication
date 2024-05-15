@@ -30,8 +30,9 @@ import AcceptedPapers from "./pages/adminPages/AcceptedPapers.jsx";
 import UserDetails from "./pages/adminPages/UserDetails.jsx";
 import ArchiveAdd from "./pages/adminPages/ArchiveAdd.jsx";
 import ArchivePaper from "./pages/ArchivePaper.jsx";
-import Issue from "./pages/Issue.jsx";
-import Archive from "./pages/Archive.jsx";
+import Issue from "./pages/ArchiveIssue.jsx";
+import Archive from "./pages/ArchiveVolume.jsx";
+import JournalDetails from "./pages/JournalDetails.jsx";
 function App() {
   return (
     <>
@@ -90,6 +91,14 @@ function App() {
             element={
               <Layout>
                 <ArchivePaper />
+              </Layout>
+            }
+          />
+          <Route
+            path="/archive/:vol/:issu/:id"
+            element={
+              <Layout>
+                <JournalDetails />
               </Layout>
             }
           />

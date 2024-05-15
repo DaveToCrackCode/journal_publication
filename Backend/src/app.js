@@ -20,10 +20,10 @@ app.use(cors());
     import adminRouter from './routes/admin.routes.js'
     import reviewersRoute from './routes/reviewers.routes.js';
     import publicRoute from './routes/public.routes.js';
+    app.use("/api/v1/public",publicRoute);
     app.use("/api/v1/author",authorRouter);
     app.use("/api/v1/admin",adminRouter);
     app.use("/api/v1/reviewer",reviewersRoute);
-    app.use("/api/v1/public",publicRoute);
 
 
 export {app};

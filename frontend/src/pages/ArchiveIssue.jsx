@@ -3,8 +3,9 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import IssueCard from '../component/IssueCard';
 import { useParams } from "react-router-dom";
+import '../style/volumecard.css';
 
-const Issue = () => {
+const ArchiveIssue = () => {
      const [issueData,setIssueData] = useState([]);
      let {vol} = useParams();
     const fetchIssue = async()=>{
@@ -30,7 +31,7 @@ const Issue = () => {
         fetchIssue();
     },[])
   return (
-    <div style={{display:"flex", flexWrap:"wrap"}}>
+    <div className='archive-wrapper'>
       {issueData.map((item) => (
           <IssueCard key={item} issue={item} volume={vol} />
         ))}  
@@ -38,4 +39,4 @@ const Issue = () => {
   );
 }
 
-export default Issue;
+export default ArchiveIssue;

@@ -128,11 +128,12 @@ const setReviewers = asyncHandler(async(req,res)=>{
             let flag= false;
 
             for(let j=0;j<reviewers.length;j++){
-                if(journalData.reviewers[i]._id==reviewers[j].id){
+                if(journalData.reviewers[i]._id==reviewers[j]._id){
                     flag= true;
                 }
             }
             if(flag== false){
+                console.log(journalData.reviewers[i])
                 journalData.reviewers.splice(i,1);
                 i--;
             }
@@ -143,7 +144,7 @@ const setReviewers = asyncHandler(async(req,res)=>{
              let flag= false;
              
              for(let i=0;i<journalData.reviewers.length;i++){
-                if(journalData.reviewers[i]._id==reviewers[j].id){
+                if(journalData.reviewers[i]._id==reviewers[j]._id){
                     flag= true;
                 }
             }
@@ -154,20 +155,7 @@ const setReviewers = asyncHandler(async(req,res)=>{
             
          }
 
-        // const existingReviewers = new Set(journalData.reviewers.map(reviewer => reviewer._id));
-        // const newReviewers = new Set(reviewers.map(reviewer => reviewer._id));
         
-        // // Remove reviewers not in the new list
-        // journalData.reviewers = journalData.reviewers.filter(reviewer => newReviewers.has(reviewer._id));
-        
-        // // Add new reviewers not already in the existing list
-        // reviewers.forEach(reviewer => {
-        //     if (!existingReviewers.has(reviewer._id)) {
-        //         journalData.reviewers.push({ _id: reviewer._id });
-        //     }
-        // });
-       
-
         // for(let i=0;i<reviewers.length;i++){
         //     journalData.reviewers.push(reviewers[i]._id);
         //     // const mailRes= await sendEmail(reviewers[i].email);

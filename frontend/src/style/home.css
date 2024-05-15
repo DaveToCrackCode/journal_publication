@@ -251,7 +251,7 @@
   
     .hero {
       grid-template-columns: 1fr;
-      padding: 0 8rem;
+      /* padding: 0 8rem; */
       gap: 6.4rem;
     }
   

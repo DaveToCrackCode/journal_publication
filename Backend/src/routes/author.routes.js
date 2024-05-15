@@ -17,7 +17,7 @@ router.route("/login").post(loginUser);
 router.route("/submit-journal").post(verifyJWT,upload.single("pdfFile"),uplaodJournal);
 router.route("/getJournal").get(verifyJWT,getJournal);
 router.route("/getUserProfile").get(verifyJWT,getUserProfile);
-router.route('/getCompleteDetailsOfJournal/:id').get(getCompleteDetailsOfJournal);
+router.route('/getCompleteDetailsOfJournal/:id').get(verifyJWT,getCompleteDetailsOfJournal);
 
 
 export default router;
