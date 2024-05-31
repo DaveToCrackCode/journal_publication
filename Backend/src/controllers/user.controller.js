@@ -188,7 +188,7 @@ const loginUser =asyncHandler(async(req,res)=>{
 const uplaodJournal = asyncHandler(async(req,res)=>{
        try {
         // console.log(req.file.path);
-           const {title,keyword,abstract,journalType} = req.body;
+           const {title,keyword, coAuthor1name, coAuthor1email, coAuthor2name, coAuthor2email, coAuthor3name, coAuthor3email,abstract,journalType} = req.body;
            console.log(req.body);
            const user = req.user;
            
@@ -197,6 +197,18 @@ const uplaodJournal = asyncHandler(async(req,res)=>{
            )
            {
                 throw  new ApiError(400,"All fields are required");
+           }
+           const coauthor1= await User.find({email:coAuthor1email});
+           if(!coauthor1){
+            throw new ApiError(400,"Not Valid Co-Author");
+           }
+           const coauthor12= await User.find({email:coAuthor2email});
+           if(!coauthor12){
+            throw new ApiError(400,"Not Valid Co-Author");
+           }
+           const coauthor3= await User.find({email:coAuthor3email});
+           if(!coauthor3){
+            throw new ApiError(400,"Not Valid Co-Author");
            }
            const localJournalPath = req.file?.path;
            //console.log("localJournalPath",localJournalPath);

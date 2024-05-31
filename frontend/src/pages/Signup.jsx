@@ -209,18 +209,7 @@ const Signup = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div>
-                <label className="label" htmlFor="image">
-                  Profile Image
-                </label>
-                <input
-                  className="input"
-                  type="file"
-                  id="image"
-                  name="image"
-                  onChange={handleChange}
-                />
-              </div>
+              
               <div>
                 <label className="label" htmlFor="degree_pdf">
                   Degree PDF
@@ -231,6 +220,7 @@ const Signup = () => {
                   id="degree_pdf"
                   name="degree_pdf"
                   onChange={handleChange}
+                  accept=".pdf"
                 />
               </div>
 

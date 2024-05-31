@@ -26,7 +26,7 @@ const ArchiveAdd = () => {
             [name]: value,
         });
     };
-
+    
     const handleFileChange = (e) => {
         console.log(e.target.files[0]);
         setFormData({
@@ -34,7 +34,7 @@ const ArchiveAdd = () => {
             pdfFile: e.target.files[0],
         });
     };
-
+    
     const handleVolume = (e) => {
         console.log(typeof (e.target.value));
         setVolume(e.target.value);
@@ -43,7 +43,7 @@ const ArchiveAdd = () => {
         //console.log(e.target.value);
         setIssue(e.target.value);
     };
-
+    
     const getAllIssue = () => {
         const volData = parseInt(volume, 10);
         // console.log(typeof(vol));
@@ -54,19 +54,19 @@ const ArchiveAdd = () => {
         //console.log(VolumeData?.issue);
         setAllIssue(VolumeData?.issue);
     }
-
+    
     const getAllVolume = async () => {
         try {
             const headers = {
                 Authorization: localStorage.getItem("token"),
                 "Content-Type": "application/json",
             };
-
+            
             const response = await axios.get(
                 "http://127.0.0.1:5000/api/v1/admin/getAllVolume",
                 { headers }
             );
-
+            
             if (response.status === 200) {
                 // Assuming the response.data contains the array of journals
                 console.log(response.data.data);
@@ -81,6 +81,27 @@ const ArchiveAdd = () => {
             console.error("Error fetching data:", error);
             toast.error("Some internal server error");
         }
+    };
+
+    
+    const [confirmAddVolume, setConfirmVolume] = useState(false);
+    const [confirmAddIssue, setConfirmIssue] = useState(false);
+    
+    const handleVolumeAddition = async (id) => {
+        setConfirmVolume(true);
+    };
+
+
+    const handleNotAddVolume = async (id) => {
+        setConfirmVolume(false);
+    };
+    const handleIssueAddition = async (id) => {
+        setConfirmIssue(true);
+    };
+
+
+    const handleNotAddIssue = async (id) => {
+        setConfirmIssue(false);
     };
 
     const handleAddVolume = async () => {
@@ -100,6 +121,7 @@ const ArchiveAdd = () => {
                 console.log(response.data.data);
                 setAllVolume(response.data.data);
                 toast.success("Volume Added SuccesFully");
+                setConfirmVolume(false);
             } else if (response.status == 203) {
                 toast.error("Some Error While Adding Volume");
             } else {
@@ -129,6 +151,7 @@ const ArchiveAdd = () => {
                 setVolume("");
 
                 toast.success("Issue Added SuccesFully");
+                setConfirmIssue(false);
                 window.location.reload();
             } else if (response.status == 203) {
                 toast.error("Some Error While Adding Issue");
@@ -174,15 +197,9 @@ const ArchiveAdd = () => {
             console.error('Error submitting form:', error);
             // Handle errors, show an error message, etc.
         }
-        // Reset form after submission if needed
-        // setFormData({
-        //   title: "",
-        //   pageNumber: "",
-        //   date: "",
-        //   abstract: "",
-        //   file: null,
-        // });
+        
     };
+
 
     useEffect(() => {
         getAllVolume();
@@ -192,6 +209,23 @@ const ArchiveAdd = () => {
     }, [volume]);
 
     return (
+        <>
+      
+            {confirmAddVolume && (
+                <div className="confirmation-dialog">
+                    <p>Are you sure you want to Add Volume it can not be Undone?</p>
+                    <button onClick={handleAddVolume}  className="accept-btn" >Yes</button>
+                    <button onClick={handleNotAddVolume}  className="reject-btn" style={{marginLeft: "20px"}}>No</button>
+                </div>
+            )}
+
+            {confirmAddIssue && (
+                <div className="confirmation-dialog">
+                    <p>Are you sure you want to Add Issue it can not be Undone?</p>
+                    <button onClick={handleAddIsuue}  className="accept-btn" >Yes</button>
+                    <button onClick={handleNotAddIssue}  className="reject-btn" style={{marginLeft: "20px"}}>No</button>
+                </div>
+            )}
         <div className="container_" style={{ marginTop: "5%", marginBottom: "5%" }}>
             <div className="cta">
                 <div className="cta-text-box">
@@ -229,8 +263,8 @@ const ArchiveAdd = () => {
                             </select>
                         </div>
                         
-                            {!volume && <button type="button" className="submit-button" onClick={handleAddVolume}>Add New Volume</button>}
-                            {volume && <button  type="button" className="submit-button" onClick={handleAddIsuue}>Add New Issue</button>}
+                            {!volume && <button type="button" className="submit-button" onClick={handleVolumeAddition}>Add New Volume</button>}
+                            {volume && <button  type="button" className="submit-button" onClick={handleIssueAddition}>Add New Issue</button>}
                         
                         
 
@@ -315,6 +349,7 @@ const ArchiveAdd = () => {
 
             </div>
         </div>
+        </>
     );
 };
 

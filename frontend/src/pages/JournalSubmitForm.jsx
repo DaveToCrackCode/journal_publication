@@ -9,6 +9,12 @@ const JournalSubmitForm = () => {
   const [formData, setFormData] = useState({
     title: '',
     keyword:"",
+    coAuthor1name:"",
+    coAuthor1email:"",
+    coAuthor2name:"",
+    coAuthor2email:"",
+    coAuthor3name:"",
+    coAuthor3email:"",
     abstract: '',
     pdfFile: 'null',
     journalType: 'none',
@@ -32,6 +38,7 @@ const JournalSubmitForm = () => {
     Object.entries(formData).forEach(([key, value]) => {
       formDataObj.append(key, value);
     });
+    // console.log(formDataObj);
     try {
      
     
@@ -135,20 +142,20 @@ const JournalSubmitForm = () => {
         <h2 className="text-center mb-4">Journal Submission Form</h2>
         <form className="cta-form" name="sign-up" onSubmit={handleSubmit} >
                 <div>
-                  <label htmlfor="name">Title</label>
+                  <label htmlfor="name">Title<span className="text-danger">*</span></label>
                   <input
                     className="input"
                     type="text"
                     id="name"
                     name="title"
-                    placeholder="Your Name"
+                    placeholder="Enter Title"
                     value={formData.title}
                     onChange={handleChange}
                     required
                   />
                 </div>
                 <div>
-                  <label htmlfor="keyword">Keyword</label>
+                  <label htmlfor="keyword">Keyword<span className="text-danger">*</span></label>
                   <input
                     className="input"
                     type="text"
@@ -160,6 +167,85 @@ const JournalSubmitForm = () => {
                     required
                   />
                 </div>
+                <div>
+                  <label htmlfor="coAuthor1">Co-Author1 Name</label>
+                  <input
+                    className="input"
+                    type="text"
+                    id="coAuthor1"
+                    name="coAuthor1name"
+                    placeholder="Co Author1 Name"
+                    value={formData.coAuthor1name}
+                    onChange={handleChange}
+                    
+                  />
+                </div>
+                <div>
+                  <label htmlfor="coAuthor1">Co-Author1 Email</label>
+                  <input
+                    className="input"
+                    type="email"
+                    id="coAuthor1"
+                    name="coAuthor1email"
+                    placeholder="Co Author1 Email"
+                    value={formData.coAuthor1email}
+                    onChange={handleChange}
+                    
+                  />
+                </div>
+                <div>
+                  <label htmlfor="coAuthor2">Co-Author2 Name</label>
+                  <input
+                    className="input"
+                    type="text"
+                    id="coAuthor2"
+                    name="coAuthor2name"
+                    placeholder="Co Author2 Name"
+                    value={formData.coAuthor2name}
+                    onChange={handleChange}
+                    
+                  />
+                </div>
+                <div>
+                  <label htmlfor="coAuthor2">Co-Author2 Email</label>
+                  <input
+                    className="input"
+                    type="email"
+                    id="coAuthor2"
+                    name="coAuthor2email"
+                    placeholder="Co Author2 Email"
+                    value={formData.coAuthor2email}
+                    onChange={handleChange}
+                   
+                  />
+                </div>
+                <div>
+                  <label htmlfor="coAuthor3">Co-Author3 Name</label>
+                  <input
+                    className="input"
+                    type="text"
+                    id="coAuthor3"
+                    name="coAuthor3name"
+                    placeholder="Co Author3 Name"
+                    value={formData.coAuthor3name}
+                    onChange={handleChange}
+                    
+                  />
+                </div>
+                <div>
+                  <label htmlfor="coAuthor3">Co-Author3 Email</label>
+                  <input
+                    className="input"
+                    type="email"
+                    id="coAuthor3"
+                    name="coAuthor3email"
+                    placeholder="Co Author3 Email"
+                    value={formData.coAuthor3email}
+                    onChange={handleChange}
+                    
+                  />
+                </div>
+                
                 <div>
                   <label htmlFor="abstract"> Abstract <span className="text-danger">*</span> </label>
                     <textarea className="input" 
