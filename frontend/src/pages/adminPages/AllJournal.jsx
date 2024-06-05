@@ -18,7 +18,9 @@ const AllJournal = () => {
       if (response.status === 200) {
         // Assuming the response.data contains the array of journals
         // console.log(response.data.data);
-        setJournals(response.data.data);
+        
+        const journal=response.data.data.filter(journal => journal.status !== 'accepted' && journal.status !== 'rejected');
+        setJournals(journal);
         toast.success('Data Fetched Successfully');
       } else {
         toast.error('Failed to fetch data');

@@ -1,0 +1,6 @@
+emailContent:{
+    
+}
+
+
+export default emailContent;

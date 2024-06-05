@@ -16,6 +16,24 @@ const journalSchema = new mongoose.Schema({
     type:String,
     required:true
   },
+  coAuthor1name:{
+    type: String
+  },
+  coAuthor1email:{
+    type:String
+  },
+  coAuthor2name:{
+    type: String
+  },
+  coAuthor2email:{
+    type:String
+  },
+  coAuthor3name:{
+    type: String
+  },
+  coAuthor3email:{
+    type:String
+  },
   abstract: {
     type: String,
     required: true,
@@ -28,7 +46,7 @@ const journalSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'UnderReview', 'minor','minorRaised','major','minorRaised','accepted', 'published'],
+    enum: ['pending', 'UnderReview', 'minor','minorRaised','major','minorRaised','accepted', 'rejected','published'],
     default: 'pending',
   },
   date: {
@@ -39,12 +57,6 @@ const journalSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
-  },
-  rating: {
-    type: Number,
-    min: 0,
-    max: 10,
-    default: 0,
   },
   journalType: {
     type: String,

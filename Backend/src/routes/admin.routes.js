@@ -2,10 +2,12 @@ import { AdminverifyJWT } from "../middleware/adminAuth.middleware.js";
 import { Router } from "express";
 import {
     getAllReviewer, getAllAuthor, getAllJournals, getJournal, setReviewers,
-    getAllReviewerRequest, acceptRequest, acceptPaper, rejectRequest, getUsertDetails,getAllVolume,
+    getAllReviewerRequest, acceptRequest, acceptPaper, rejectRequest,rejectPaper, getUsertDetails,getAllVolume,
     addVolume,
     addIssue, 
-    addArchive
+    addArchive,
+    getAllFeedBackOfReviwer,
+    sendRemindMail
 }
     from '../controllers/admin.controler.js'
 import { getCompleteDetailsOfJournal } from "../controllers/user.controller.js";
@@ -24,11 +26,13 @@ router.route('/getReviewerRequest').get(AdminverifyJWT, getAllReviewerRequest);
 router.route('/track_details/:id').get(AdminverifyJWT, getCompleteDetailsOfJournal);
 router.route('/user_details/:id').get(AdminverifyJWT, getUsertDetails);
 router.route('/acceptRequest/:id').delete(AdminverifyJWT, acceptRequest);
-router.route('/acceptPaper/:id').post(AdminverifyJWT, acceptPaper);
 router.route('/rejectRequest/:id').delete(AdminverifyJWT, rejectRequest);
+router.route('/acceptPaper/:id').post(AdminverifyJWT, acceptPaper);
+router.route('/rejectPaper/:id').post(AdminverifyJWT, rejectPaper);
 router.route('/getAllVolume').get(AdminverifyJWT,getAllVolume);
 router.route('/addVolume').get(AdminverifyJWT,addVolume);
 router.route('/addIssue/:volume').put(AdminverifyJWT,addIssue);
 router.route('/submit-Archive').post(AdminverifyJWT,upload.single('pdfFile'),addArchive);
-
+router.route('/getAllFeedBackOfReviwer').get(AdminverifyJWT, getAllFeedBackOfReviwer);
+router.route('/send-remind-mail').post(AdminverifyJWT,sendRemindMail);
 export default router;

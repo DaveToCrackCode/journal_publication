@@ -1,62 +1,62 @@
 .archive-form-container {
-    max-width: 600px;
-    margin: 0 auto;
-  }
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-  .archive-form-container h1 {
-    text-align: center;
-  }
+.archive-form-container h1 {
+  text-align: center;
+}
 
-  .archive-form-container form {
-    display: flex;
-    flex-direction: column;
-  }
+.archive-form-container form {
+  display: flex;
+  flex-direction: column;
+}
 
-  .archive-form-container label {
-    margin-bottom: 8px;
-  }
+.archive-form-container label {
+  margin-bottom: 8px;
+}
 
-  .archive-form-container input[type="text"],
-  .archive-form-container input[type="date"],
-  .archive-form-container select,
-  .archive-form-container textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
+.archive-form-container input[type="text"],
+.archive-form-container input[type="date"],
+.archive-form-container select,
+.archive-form-container textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 
-  .archive-form-container textarea {
-    height: 100px; /* Adjust height as needed */
-  }
+.archive-form-container textarea {
+  height: 100px; /* Adjust height as needed */
+}
 
-  .archive-form-container button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+.archive-form-container button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-  .archive-form-container button[type="submit"]:hover {
-    background-color: #0056b3;
-  }
+.archive-form-container button[type="submit"]:hover {
+  background-color: #0056b3;
+}
 
-  /* Styling for file input */
-  .archive-form-container input[type="file"] {
-    margin-top: 8px;
-  }
+/* Styling for file input */
+.archive-form-container input[type="file"] {
+  margin-top: 8px;
+}
 
-  /* Optional: Additional styles for dropdown select */
-  .archive-form-container select {
-    appearance: none;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    cursor: pointer;
-  }
+/* Optional: Additional styles for dropdown select */
+.archive-form-container select {
+  appearance: none;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}

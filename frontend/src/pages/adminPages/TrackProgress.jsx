@@ -33,8 +33,15 @@ const TrackProgress = () => {
         getAllJournals();
     }, []);
 
-     const [confirmAccept, setConfirmAccept] = useState(false);
     const [paperId, setPaperId] = useState(null);
+    const [confirmAccept, setConfirmAccept] = useState(false);
+    const [confirmReject, setConfirmReject] = useState(false);
+
+    const handleRejectPaper = async (id) => {
+        setConfirmReject(true);
+        setPaperId(id);
+    };
+    
 
     const handleAcceptPaper = async (id) => {
         setConfirmAccept(true);
@@ -70,6 +77,35 @@ const TrackProgress = () => {
         setPaperId(null);
     };
 
+    const confirmRejectPaper = async () => {
+        try {
+            const headers = {
+                Authorization: localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+            };
+
+            const response = await axios.post(`http://127.0.0.1:5000/api/v1/admin/rejectPaper/${paperId}`, {}, { headers });
+
+            if (response.status === 200) {
+                toast.success('Rejected Successfully');
+            } else {
+                toast.error('Failed to Reject Request');
+            }
+        } catch (error) {
+            console.error('Error Rejecting the request:', error);
+            toast.error('Some internal server error');
+        } finally {
+            // Reset confirmation dialog state
+            setConfirmReject(false);
+            setPaperId(null);
+        }
+    };
+
+    const cancelRejectPaper = () => {
+        setConfirmReject(false);
+        setPaperId(null);
+    };
+
 
 
     return (
@@ -81,6 +117,13 @@ const TrackProgress = () => {
                     <p>Are you sure you want to accept the paper?</p>
                     <button onClick={confirmAcceptPaper}  className="accept-btn" >Yes</button>
                     <button onClick={cancelAcceptPaper}  className="reject-btn" style={{marginLeft: "20px"}}>No</button>
+                </div>
+            )}
+            {confirmReject && (
+                <div className="confirmation-dialog">
+                    <p>Are you sure you want to reject the paper?</p>
+                    <button onClick={confirmRejectPaper}  className="accept-btn" >Yes</button>
+                    <button onClick={cancelRejectPaper}  className="reject-btn" style={{marginLeft: "20px"}}>No</button>
                 </div>
             )}
 
@@ -98,8 +141,8 @@ const TrackProgress = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {journals.some(journal => journal.status !== 'accepted') ? (
-                    journals.filter(journal => journal.status !== 'accepted').map((journal) => (
+                    {journals.some(journal => journal.status !== 'accepted' && journal.status !== 'rejected') ? (
+                    journals.filter(journal => journal.status !== 'accepted' && journal.status !== 'rejected').map((journal) => (
                             <>
                                 <tr>
                                     <td>{journal.paper_id}</td>
@@ -116,7 +159,7 @@ const TrackProgress = () => {
                                          <tr>
 
                                          <td style={{ textAlign: "center" }} colSpan={3}><button className="accept-btn" onClick={() => handleAcceptPaper(journal._id)}>Accept Paper</button> </td>
-                                         <td style={{ textAlign: "center" }} colSpan={3} /*onClick={handleRejectPaper}*/><button className="reject-btn">Reject Paper</button> </td>
+                                         <td style={{ textAlign: "center" }} colSpan={3} ><button className="reject-btn" onClick={() => handleRejectPaper(journal._id)}>Reject Paper</button> </td>
                                          </tr>
                                     
                             </>

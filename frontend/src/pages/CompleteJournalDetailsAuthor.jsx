@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import "../style/addreviewer.css";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const CompleteJournalDetailsAuthor = () => {
@@ -20,10 +20,10 @@ const CompleteJournalDetailsAuthor = () => {
         `http://127.0.0.1:5000/api/v1/author/getCompleteDetailsOfJournal/${id}`,
         { headers }
       );
-      console.log(response);
+      //console.log(response);
       if (response.status === 200) {
         // Assuming the response.data contains the array of journals
-        //console.log("One journal", response.data.data);
+        console.log("One journal", response.data.data);
         setData(response.data.data);
         toast.success("Data Fetched Successfully");
       } else {
@@ -76,6 +76,12 @@ const CompleteJournalDetailsAuthor = () => {
           <p>Reviewers Accepted: {data?.acceptedReviewers}</p>
           <p>Reviewers Rejected: {data?.rejectedReviewers}</p>
           </div>
+          {
+            (data?.journalDetails?.status == "minor" || data?.journalDetails?.status == 'major') &&<div className="reviewer-discription">
+           <Link style={{border:"2px solid gray", background:"white", textDecoration:"none", padding:"6px", margin:"2px"}} to={`/journal/author/feedback/${id}`}>check feedback</Link>
+           <Link style={{border:"2px solid gray", background:"white", textDecoration:"none", padding:"6px", margin:"2px"}} to={`/journal/author/revision/${id}`}>update Paper</Link>
+          </div>
+          }
         </div>
       </div>
     </>

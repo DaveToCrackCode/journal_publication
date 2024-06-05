@@ -39,7 +39,7 @@ const Navbar = () => {
     setUser("");
   };
   useEffect(() => {
-    console.log("hhh");
+    //console.log("hhh");
   }, [token, user]);
 
   const [isOpen, setDropdownOpen] = useState(false);
@@ -141,9 +141,6 @@ const Navbar = () => {
                       <Link className="dropdown-link" to="/paper-in-review" onClick={handleNavItemClick}>
                         Papers In Review
                       </Link>
-                      <Link className="dropdown-link" to="/accepted-papers" onClick={handleNavItemClick}>
-                        Accepted Papers
-                      </Link>
                       <Link className="dropdown-link" to="/manage-archive" onClick={handleNavItemClick}>
                         Manage Archive
                       </Link>
@@ -155,6 +152,12 @@ const Navbar = () => {
                       </Link>
                       <Link className="dropdown-link" to="/all-authors" onClick={handleNavItemClick}>
                         Author's List
+                      </Link>
+                      <Link className="dropdown-link" to="/accepted-papers" onClick={handleNavItemClick}>
+                        Accepted Papers
+                      </Link>
+                      <Link className="dropdown-link" to="/rejected-papers" onClick={handleNavItemClick}>
+                        Rejected Papers
                       </Link>
                       
                     </div>

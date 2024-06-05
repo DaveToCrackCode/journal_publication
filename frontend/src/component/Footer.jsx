@@ -2,6 +2,7 @@ import React from "react";
 import "../style//footer.css";
 import "../style//general.css";
 import "../style//queries.css";
+import { Link } from "react-router-dom";
 import logo from "../img/logo.png";
 
 const Footer = () => {
@@ -13,8 +14,8 @@ const Footer = () => {
             <a href="#" className="footer-logo">
               <img className="logo" alt="Journals Hub logo" src={logo} />
             </a>
-            Made with ❤️ by <br />
-            Akash Dave & Govind Dangi
+            Made with ❤️ <br />
+            <Link to="/developers" style={{textDecoration: "none"}}>Meet our Developer Team</Link>
           </div>
 
           <div className="address-col">

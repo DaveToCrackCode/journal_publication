@@ -33,6 +33,11 @@ import ArchivePaper from "./pages/ArchivePaper.jsx";
 import Issue from "./pages/ArchiveIssue.jsx";
 import Archive from "./pages/ArchiveVolume.jsx";
 import JournalDetails from "./pages/JournalDetails.jsx";
+import ShowFeedbackPageAuthor from "./pages/ShowFeedbackPageAuthor.jsx";
+import RevisionJournal from "./pages/RevisionJournal.jsx";
+import AllFeedBackReviewer from "./pages/adminPages/AllFeedBackReviewer.jsx";
+import RejectedPapers from "./pages/adminPages/RejectedPapers.jsx";
+import Developers from "./pages/Developers.jsx";
 function App() {
   return (
     <>
@@ -119,6 +124,15 @@ function App() {
             }
           />
 
+          <Route
+            path="/developers"
+            element={
+              <Layout>
+                <Developers />
+              </Layout>
+            }
+          />
+
 
           <Route
             path="/submit_paper"
@@ -138,6 +152,28 @@ function App() {
                 <Layout>
                   {" "}
                   <Profile />
+                </Layout>
+              </Protected>
+            }
+          />
+          <Route
+            path="/journal/author/feedback/:id"
+            element={
+              <Protected>
+                <Layout>
+                  {" "}
+                  <ShowFeedbackPageAuthor />
+                </Layout>
+              </Protected>
+            }
+          />
+          <Route
+            path="/journal/author/revision/:id"
+            element={
+              <Protected>
+                <Layout>
+                  {" "}
+                  <RevisionJournal />
                 </Layout>
               </Protected>
             }
@@ -237,6 +273,16 @@ function App() {
             }
           />
           <Route
+            path="/rejected-papers"
+            element={
+              <Admin>
+                <Layout>
+                  <RejectedPapers />
+                </Layout>
+              </Admin>
+            }
+          />
+          <Route
             path="/user-details/:id"
             element={
               <Admin>
@@ -272,6 +318,16 @@ function App() {
               <Admin>
                 <Layout>
                   <AddReviewer />
+                </Layout>
+              </Admin>
+            }
+          />
+          <Route
+            path="/journal/all-feedback/:id/:email"
+            element={
+              <Admin>
+                <Layout>
+                  <AllFeedBackReviewer />
                 </Layout>
               </Admin>
             }

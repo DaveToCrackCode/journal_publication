@@ -78,11 +78,11 @@ const getArchivePaperData = asyncHandler(async(req,res)=>{
 
 const getArchieveJournaltDetails = asyncHandler(async(req,res)=>{
     try {
-      
+
        const id = req.params.id;
 
        const archieveJournal = await ArchiveVolume.findById({_id:id});
-       
+
        if(!archieveJournal){
         throw new ApiError(400,"Some error when fetching Journal from database");
     }
@@ -95,10 +95,9 @@ const getArchieveJournaltDetails = asyncHandler(async(req,res)=>{
     }
 });
 
-
 export {
     getArchiveData,
     getIssueData ,
-    getArchivePaperData ,
+    getArchivePaperData,
     getArchieveJournaltDetails
 }

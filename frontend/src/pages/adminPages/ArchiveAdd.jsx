@@ -18,7 +18,9 @@ const ArchiveAdd = () => {
         abstract: "",
         pdfFile: "null",
     });
-
+    const [confirmAddVolume, setConfirmVolume] = useState(false);
+    const [confirmAddIssue, setConfirmIssue] = useState(false);
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -26,7 +28,7 @@ const ArchiveAdd = () => {
             [name]: value,
         });
     };
-    
+
     const handleFileChange = (e) => {
         console.log(e.target.files[0]);
         setFormData({
@@ -34,7 +36,7 @@ const ArchiveAdd = () => {
             pdfFile: e.target.files[0],
         });
     };
-    
+
     const handleVolume = (e) => {
         console.log(typeof (e.target.value));
         setVolume(e.target.value);
@@ -43,7 +45,7 @@ const ArchiveAdd = () => {
         //console.log(e.target.value);
         setIssue(e.target.value);
     };
-    
+
     const getAllIssue = () => {
         const volData = parseInt(volume, 10);
         // console.log(typeof(vol));
@@ -54,19 +56,19 @@ const ArchiveAdd = () => {
         //console.log(VolumeData?.issue);
         setAllIssue(VolumeData?.issue);
     }
-    
+
     const getAllVolume = async () => {
         try {
             const headers = {
                 Authorization: localStorage.getItem("token"),
                 "Content-Type": "application/json",
             };
-            
+
             const response = await axios.get(
                 "http://127.0.0.1:5000/api/v1/admin/getAllVolume",
                 { headers }
             );
-            
+
             if (response.status === 200) {
                 // Assuming the response.data contains the array of journals
                 console.log(response.data.data);
@@ -83,10 +85,6 @@ const ArchiveAdd = () => {
         }
     };
 
-    
-    const [confirmAddVolume, setConfirmVolume] = useState(false);
-    const [confirmAddIssue, setConfirmIssue] = useState(false);
-    
     const handleVolumeAddition = async (id) => {
         setConfirmVolume(true);
     };
@@ -197,9 +195,15 @@ const ArchiveAdd = () => {
             console.error('Error submitting form:', error);
             // Handle errors, show an error message, etc.
         }
-        
+        // Reset form after submission if needed
+        // setFormData({
+        //   title: "",
+        //   pageNumber: "",
+        //   date: "",
+        //   abstract: "",
+        //   file: null,
+        // });
     };
-
 
     useEffect(() => {
         getAllVolume();
@@ -210,7 +214,7 @@ const ArchiveAdd = () => {
 
     return (
         <>
-      
+
             {confirmAddVolume && (
                 <div className="confirmation-dialog">
                     <p>Are you sure you want to Add Volume it can not be Undone?</p>

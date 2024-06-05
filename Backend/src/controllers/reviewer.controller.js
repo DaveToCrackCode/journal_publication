@@ -74,6 +74,26 @@ const AcceptHandler = asyncHandler(async(req,res)=>{
         }
 
         // Update the status of the reviewer to 'accept'
+        const emailHtml = `
+        <p>Dear Dr. ${req.user.name},</p>
+        <p>Thank you for agreeing to review the above manuscript.</p>
+        <p><strong>Manuscript Number:</strong> ${journal.paper_id}</p>
+        <p><strong>Title:</strong> ${journal.title}</p>
+        <p>You can submit your review by logging in with your username and password at: <a href="'https://www.ijesacbt.com">'https://www.ijesacbt.com</a></p>
+        <p>Your username is: ${req.user.email}</p>
+        <p>If you forgot your password, you can click the 'forgot Password' link in the Login page at <a href="https://www.ijesacbt.com">https://www.ijesacbt.com</a>. For security reasons, we are not sending any passwords in mail. Sorry for the inconvenience.</p>
+        <p>We look forward to receiving your review by 10 dec 2024.</p>
+        <p>If you have any questions, please do not hesitate to contact us. We appreciate your assistance.</p>
+        <p>With kind regards,</p>
+        <p>Dr. R. Ponalagusamy<br />
+        Editor-in-Chief<br />
+        IJESACBT</p>
+      `;
+       
+      const emailRes = sendEmail(req.user.email,emailHtml,"Thanks Letter for agreeing to review ");
+      if(!emailRes){
+        throw ApiError(405,"errro in sending mail");
+      }
         journal.reviewers[reviewerIndex].status = 'accept';
         console.log(journal.reviewers[reviewerIndex].status)
         // // Save the changes
@@ -126,21 +146,20 @@ const RejectHandler = asyncHandler(async(req,res)=>{
 
 const SetFeedBack = asyncHandler(async(req,res)=>{
     try {
-        const { q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, feedback, journalId } = req.body;
+        const { q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11,q12, feedback, journalId } = req.body;
         let user = req.user._id;
-        console.log(req.body)
-        console.log(user)
-        
-
         let journalData = await Journal.findById({_id:journalId});
         //console.log(journalData);
         if(!journalData){
             throw new ApiError(201, "Journal is not present ");
         }
 
-       const  feedBackData = await FeedBack.find({journal:journalId});
-       const isReviewAdded = feedBackData.some(feedback => feedback.reviewer.equals(req.user._id));
-        console.log(isReviewAdded);
+        const ReviewerStatus = journalData.reviewers.filter(function(reviewer) {
+            // console.log(reviewer._id)
+            return reviewer._id.toString() === user.toString();
+          });
+         // console.log(ReviewerStatus);
+        const isReviewAdded = ReviewerStatus[0].status =='feedbackGiven';
         if (isReviewAdded) {
             return res.status(201).json(
                 "Feedback Allready aded by this user");
@@ -171,18 +190,19 @@ const SetFeedBack = asyncHandler(async(req,res)=>{
        {
         throw new ApiError(500, "Error while saving data into database ");
        }
-       if(journalData.status !== 'minor' ||  journalData.status !=='major')
-       journalData.status = q12;
-       const filteredReviewer = journalData.reviewers.filter(function(reviewer) {
-        // console.log(reviewer._id)
-        return reviewer._id.toString() === user.toString();
-      });
-      console.log(filteredReviewer)
-      if (filteredReviewer.length > 0) {
-        filteredReviewer[0].journalStatus = q12;
-        filteredReviewer[0].status = 'feedbackGiven';
-     }
-       
+       if(journalData.status != 'minor' ||  journalData.status != 'major'){
+        console.log(q12);
+        journalData.status = q12;
+       }
+        const filteredReviewer = journalData.reviewers.filter(function(reviewer) {
+         // console.log(reviewer._id)
+         return reviewer._id.toString() === user.toString();
+       });
+       console.log(filteredReviewer)
+       if (filteredReviewer.length > 0) {
+         filteredReviewer[0].journalStatus = q12;
+         filteredReviewer[0].status = 'feedbackGiven';
+      }
        await journalData.save();
 
        res.status(200).json(

@@ -10,6 +10,7 @@ import { sendEmail } from "../utils/nodemailer.js";
 import { ReviewerRequest } from "../models/reviewerRequest.model.js";
 import { ArchiveVolumeHelper } from "../models/archiveVolumeHelper.model.js";
 import { ArchiveVolume } from "../models/archiveVolume.model.js";
+import { FeedBack } from "../models/feedback.model.js";
 const getAllReviewer = asyncHandler(async (req, res) => {
     try {
         const reviewer = await User.find({ isReviewer: true });
@@ -102,6 +103,24 @@ const setReviewers = asyncHandler(async(req,res)=>{
         let reviewers = req.body
         // console.log(reviewers);
 
+        function generateReviewRequestEmailHtml(reviewerName, manuscriptNumber, manuscriptTitle, abstract, username, editorName,) {
+            return `
+              <p>Dear Dr. ${reviewerName},</p>
+              <p>In view of your expertise, the Editorial Board has recommended you as a reviewer for the following manuscript which has been submitted to International Journal of Engineering Science, Advanced Computing and Bio-Technology (IJESACBT):</p>
+              <p><strong>Manuscript Number:</strong> ${manuscriptNumber}</p>
+              <p><strong>Title:</strong> ${manuscriptTitle}</p>
+              <p>This is the abstract:<br />
+              ${abstract}</p>
+              <p>If you would like to review this paper, please go to Editorial Manager website (<a href="www.ijesacbt.com">www.ijesacbt.com</a>).</p>
+              <p>Your username is: ${username}</p>
+              <p>If you forgot your password, you can click the 'Send Login Details' link on the EM Login page at <a href="www.ijesacbt.com">www.ijesacbt.com</a>.</p>
+              <p>As the editor in charge of this manuscript, I would be grateful if you could review it and submit a review report in 30 days. You may submit your comments online at the above URL. There you can give your scores and have spaces for confidential comments to the editor.</p>
+              <p>With kind regards,<br />
+              ${editorName}<br />
+              Editor-In-Chief</p>
+              <p>With many thanks and best regards,</p>
+            `;
+          }
         const journalData = await Journal.findOne({_id:id});
 
 
@@ -110,7 +129,7 @@ const setReviewers = asyncHandler(async(req,res)=>{
             throw new ApiError(400,"Journal data is not find in database")
         }
 
-        console.log(reviewers[0]._id);
+        //console.log(reviewers[0]._id);
 
         // const existingReviewerIds = new Set(journalData.reviewers.map(reviewer => reviewer._id));
 
@@ -133,7 +152,6 @@ const setReviewers = asyncHandler(async(req,res)=>{
                 }
             }
             if(flag== false){
-                console.log(journalData.reviewers[i])
                 journalData.reviewers.splice(i,1);
                 i--;
             }
@@ -149,13 +167,33 @@ const setReviewers = asyncHandler(async(req,res)=>{
                 }
             }
             if(flag== false){
+                const reviewerData = await User.findOne({_id:reviewers[j]._id});
+                const emailHtml =generateReviewRequestEmailHtml(reviewerData.name,journalData.paper_id,journalData.title,journalData.abstract,reviewerData.email,req.user.name,);
+                const mailRes = sendEmail(reviewers[j].email,emailHtml,"Review Request");
+                if(!mailRes){
+                    console.log("error while sending mail to reviewer ");
+                    throw new ApiError(501,"error while sending mail to reviewer");
+                }
                 journalData.reviewers.push(reviewers[j]._id);
                 
             }
             
          }
 
+        // const existingReviewers = new Set(journalData.reviewers.map(reviewer => reviewer._id));
+        // const newReviewers = new Set(reviewers.map(reviewer => reviewer._id));
         
+        // // Remove reviewers not in the new list
+        // journalData.reviewers = journalData.reviewers.filter(reviewer => newReviewers.has(reviewer._id));
+        
+        // // Add new reviewers not already in the existing list
+        // reviewers.forEach(reviewer => {
+        //     if (!existingReviewers.has(reviewer._id)) {
+        //         journalData.reviewers.push({ _id: reviewer._id });
+        //     }
+        // });
+       
+
         // for(let i=0;i<reviewers.length;i++){
         //     journalData.reviewers.push(reviewers[i]._id);
         //     // const mailRes= await sendEmail(reviewers[i].email);
@@ -165,7 +203,7 @@ const setReviewers = asyncHandler(async(req,res)=>{
         //     // }
         //     // console.log("mail send");
         // }
-
+  
         journalData.status = "UnderReview";
 
         const updateInfo = await journalData.save();
@@ -262,6 +300,24 @@ const acceptPaper = asyncHandler(async(req,res)=>{
     } catch (error) {
        console.log("Error while accepting the Journal",error);
        throw new ApiError(500, "Error while accepting the Journal");
+    }
+});
+
+const rejectPaper = asyncHandler(async(req,res)=>{
+    try {
+        console.log("rejectPaper == ");
+       const id = req.params.id;
+
+       const journaldata = await Journal.findById({_id:id});
+       journaldata.status = 'rejected';
+       await journaldata.save();
+       res.status(200)
+       .json(
+           new ApiResponse(200,"Journal Rejected Succesfully")
+       );
+    } catch (error) {
+       console.log("Error while rejecting the Journal",error);
+       throw new ApiError(500, "Error while rejecting the Journal");
     }
 });
 
@@ -461,6 +517,85 @@ const addArchive = asyncHandler(async(req,res)=>{
        }
 });
 
+const getAllFeedBackOfReviwer = asyncHandler(async(req,res)=>{
+    try {
+        const {id,email} =req.query;
+        //console.log(id,email);
+        const reviewer = await User.findOne({email:email});
+        //console.log(reviewer);
+        if(!reviewer){
+            throw new ApiError(402,"Reviewer is not present in the database");
+            return;
+        }
+        
+        const feedback = await FeedBack.find({journal:id,reviewer:reviewer._id});
+        //console.log(feedback);
+        if(!feedback){
+            return res.status(201).json(
+                new ApiResponse(201, "Feedback is not present here ")
+            );
+        }
+
+        return res.status(200).json(
+            new ApiResponse(
+                200,feedback,
+                "Feedback Fetched SuccessFully"
+            )
+           );
+    } catch (error) {
+        console.log(error);
+        throw new ApiError(505,"server error when fetching all feedback");
+    }
+})
+
+const sendRemindMail = asyncHandler(async(req,res)=>{
+    try {
+        const {email,id,name}=req.body;
+        const journal_data = await Journal.findById({_id:id});
+        //const user = req.user;
+        emailContent = `
+        <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Reminder Letter</title>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { padding: 20px; }
+        .footer { margin-top: 20px; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <p>Dear Dr. ${name},</p>
+        <p>We write you in regards to the paper:</p>
+        <p><strong>Title:</strong> "${journal_data.title}"<br>
+           <strong>Author:</strong> ${journal_data.author}<br>
+           <strong>Journal:</strong>International Journal of Engineering Science, Advanced Computing and Bio-Technology(IJESACBT) <br>
+           <strong>Manuscript Number:</strong> ${journal_data.paper_id}</p>
+        <p>Which we sent you about two weeks ago, asking for your referee's opinion.</p>
+        <p>This e-mail is simply a reminder that your review is due.</p>
+        <p>You can submit your review by logging in with your username and password at: <a href="www.ijesacbt.com">www.ijesacbt.com</a></p>
+        <p><strong>Your username is:</strong> ${email}</p>
+        <p>If you forgot your password, you can click the 'forgot Password' link on the Login page at <a href="www.ijesacbt.com">www.ijesacbt.com</a>. For security reasons, we are not sending any passwords in the mail. Sorry for the inconvenience.</p>
+        <p>Thank you in advance for your collaboration, we very much appreciate your help in expediting the reviewing process.</p>
+        <p class="footer">Sincerely,<br>
+           Editorial Office<br>
+           IJESACBT</p>
+      </div>
+    </body>
+    </html>
+      `;
+
+      const mailRes = sendEmail(email,emailContent);
+      if(!mailRes){
+        return res.status(401).json( new ApiResponse(401,{},"error while sending the mail please try again"));
+      }
+      return res.status(200).json(new ApiResponse(200,{},"Mail Send Successfully"));
+    } catch (error) {
+        console.log("error while sending the mail",error);
+        throw new ApiError(505,"server error while sending the mail");
+    }
+})
 export { 
     getAllReviewer,
     getAllAuthor,
@@ -470,10 +605,13 @@ export {
     getAllReviewerRequest,
     acceptRequest,
     acceptPaper,
+    rejectPaper,
     getUsertDetails,
     rejectRequest,
     getAllVolume,
     addVolume,
     addIssue, 
-    addArchive
+    addArchive,
+    getAllFeedBackOfReviwer, 
+    sendRemindMail
 };

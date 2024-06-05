@@ -1,0 +1,27 @@
+/* Menu.css */
+
+.menu {
+    position: absolute;
+    top: 85px;
+    left: 5px;
+    height: 90vh;
+    width: 200px;
+    background-color: #fff;
+    padding-top: 20px;
+    padding-left: 20px;
+    color: blue;
+    border: 2px solid black;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  /* Add more styles based on your preference */
+  

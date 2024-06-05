@@ -1,0 +1,22 @@
+.reviewer-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .reviewer-card h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .reviewer-card .remarks {
+    margin-bottom: 20px;
+  }
+  
+  .reviewer-card .paragraphs p {
+    margin-bottom: 10px;
+    /* border: 0.1px solid black; */
+    padding: 4px;
+  }
+  

@@ -9,7 +9,7 @@ const UserDetails = () => {
     const [userData, setData] = useState(null);
     let { id } = useParams();
 
-    const getUserDetails = async () => {
+    const getCompleteJournalDetails = async () => {
         try {
             const headers = {
                 Authorization: localStorage.getItem("token"),
@@ -36,7 +36,7 @@ const UserDetails = () => {
     };
 
     useEffect(() => {
-        getUserDetails();
+        getCompleteJournalDetails();
     }, []);
     return (
         <>

@@ -1,3 +1,5 @@
+// JournalCard.js
+
 import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import '../style/journalcard.css';

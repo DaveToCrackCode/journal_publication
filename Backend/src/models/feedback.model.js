@@ -21,6 +21,11 @@ const feedbackSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Journal',
     required:true
+ },
+ latest:{
+   type:Boolean,
+   default: true,
+   required:true
  }
 
 },{timestamp:true});

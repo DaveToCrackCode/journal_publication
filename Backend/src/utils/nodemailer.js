@@ -3,19 +3,19 @@ import nodemailer from  'nodemailer';
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'your_email@gmail.com',
-      pass: 'your_email_password'
+      user: 'dangig976@gmail.com',
+      pass: 'wcxcxdecxgjqurud'
     }
   });
 
-  const sendEmail = async (to) => {
+  const sendEmail = async (to,htmlData,subData) => {
     try {
       // Send mail with defined transport object
       const info = await transporter.sendMail({
-        from: 'your_email@gmail.com',
+        from: 'dangig976@gmail.com',
         to:to,
-        subject: "Journal Publication Allowtment ",
-        text:"You have allowted Journal from reviewing please check the website and confirm it",
+        subject: subData,
+        html:htmlData
       });
   
       console.log('Email sent: %s', info.messageId);

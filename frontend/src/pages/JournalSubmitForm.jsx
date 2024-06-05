@@ -15,7 +15,7 @@ const JournalSubmitForm = () => {
     coAuthor2email:"",
     coAuthor3name:"",
     coAuthor3email:"",
-    abstract: '',
+    abstract: "",
     pdfFile: 'null',
     journalType: 'none',
   });
@@ -38,7 +38,6 @@ const JournalSubmitForm = () => {
     Object.entries(formData).forEach(([key, value]) => {
       formDataObj.append(key, value);
     });
-    // console.log(formDataObj);
     try {
      
     
@@ -177,7 +176,7 @@ const JournalSubmitForm = () => {
                     placeholder="Co Author1 Name"
                     value={formData.coAuthor1name}
                     onChange={handleChange}
-                    
+
                   />
                 </div>
                 <div>
@@ -190,7 +189,7 @@ const JournalSubmitForm = () => {
                     placeholder="Co Author1 Email"
                     value={formData.coAuthor1email}
                     onChange={handleChange}
-                    
+
                   />
                 </div>
                 <div>
@@ -203,7 +202,7 @@ const JournalSubmitForm = () => {
                     placeholder="Co Author2 Name"
                     value={formData.coAuthor2name}
                     onChange={handleChange}
-                    
+
                   />
                 </div>
                 <div>
@@ -216,7 +215,7 @@ const JournalSubmitForm = () => {
                     placeholder="Co Author2 Email"
                     value={formData.coAuthor2email}
                     onChange={handleChange}
-                   
+
                   />
                 </div>
                 <div>
@@ -229,7 +228,7 @@ const JournalSubmitForm = () => {
                     placeholder="Co Author3 Name"
                     value={formData.coAuthor3name}
                     onChange={handleChange}
-                    
+
                   />
                 </div>
                 <div>
@@ -242,10 +241,9 @@ const JournalSubmitForm = () => {
                     placeholder="Co Author3 Email"
                     value={formData.coAuthor3email}
                     onChange={handleChange}
-                    
+
                   />
                 </div>
-                
                 <div>
                   <label htmlFor="abstract"> Abstract <span className="text-danger">*</span> </label>
                     <textarea className="input" 
@@ -259,7 +257,7 @@ const JournalSubmitForm = () => {
                 </div>
 
                 <div>
-                  <label className="label" htmlFor="pdfFile" >Journal PDF File <span className="text-danger">*</span>
+                  <label className="label" htmlFor="pdfFile" >Journal doc File <span className="text-danger">*</span>
                   </label>
                   <input className="input" type="file" name="pdfFile" onChange={handleChange} accept=".doc,.docx" required />
                 </div>
